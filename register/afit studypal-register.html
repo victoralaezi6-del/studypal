@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/afit studypal.css">
+    <title>Studypal Register</title>
+</head>
+<body class="register-body">
+    <form>
+        <label for="firstName">Firstname</label>
+        <input type="text" id="firstName" placeholder="Precious" min="3" required>
+
+        <label for="lastName">Lastname</label>
+        <input type="text" id="lastName" placeholder="Awang" min="3" required>
+
+        <label for="matricNumber">Matric Number</label>
+        <input type="text" id="matricNumber" placeholder="  NUC00148" min="3" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="*********" min="8" required>
+
+        <button id="register" type="button">Register</button>
+
+        <p>Already have an account? <a href="/login/afit studypal-login.html">Login</a></p>
+        <p>Go home? <a href="/index.html">Home</a></p>
+
+        <p id="signup_message"></p>
+        <p id="alert"></p>
+
+        <p id="tagline"> &copy;2025. Study smarter with StudyPal</p>
+    </form>
+    <div id="logout_animation">
+        <div id="animation_coat">
+            <div id="dotted_line"></div>
+            <div id="dotted_line"></div>
+            <div id="dotted_line"></div>
+        </div>
+    </div>
+    <script src="afit studypal-register.js"></script>
+</body>
+</html>

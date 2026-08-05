@@ -3028,6 +3028,7 @@ html[data-theme="light"] .app-header {
     .landing-footer__description,
     .landing-footer__links a {
         font-size: 2rem;
+        text-align: center;
     }
 
     .landing-footer__bottom {

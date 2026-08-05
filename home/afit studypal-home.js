@@ -1,564 +1,2089 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const mobile_hamburger = document.getElementById('mobile_hamburger_item');
-    const mobile_nav = document.querySelector('.mobile_navigations');
-    const backdrop = document.getElementById('backdrop');
+"use strict";
 
-    mobile_hamburger.addEventListener('click', () => {
-        mobile_nav.style.display = 'flex';
-        backdrop.style.display = 'block';
+(() => {
+    const CONFIG = Object.freeze({
+        usersKey: "afitStudyPalUsers:v2",
+        sessionKey: "afitStudyPalSession:v2",
+        themeKey: "afitStudyPalTheme",
+        activityPrefix: "afitStudyPalActivity:",
+        sidebarKey: "afitStudyPalSidebarCollapsed"
     });
 
-    backdrop.addEventListener('click', () => {
-        mobile_nav.style.display = 'none';
-        backdrop.style.display = 'none';
-    })
-})
-
-
-const profile = document.getElementById('profile');
-const profile_container = document.querySelector('.profile_container');
-const home = document.getElementById('home');
-const right_container = document.querySelector('.right_container');
-const browse = document.getElementById('browsePDFs');
-const browse_container = document.querySelector('.browse_container');
-
-//FOR MOBILE
-const mobile_profile = document.getElementById('mobile_profile');
-const mobile_home = document.getElementById('mobile_home');
-const mobile_browse = document.getElementById('mobile_browsePDFs');
-
-//SHOW HOME CONTAINER FUNCTION
-const show_home_container = () => {
-    profile_container.style.display = 'none';
-    browse_container.style.display='none';
-    if (right_container.style.display === 'none') {
-        right_container.style.display = 'block';
-        renderRandom(carouselData);
-    }
-}
-
-//SHOW PROFILE CONTAINER FUNCTION
-const show_profile_container = () => {
-    right_container.style.display = 'none';
-    browse_container.style.display = 'none';
-    profile_container.style.display = 'block';
-}
-
-//SHOW BROWSE CONTAINER FUNCTION
-const show_browse_container = () => {
-    right_container.style.display = 'none';
-    profile_container.style.display = 'none';
-    browse_container.style.display = 'block';
-}
-
-home.addEventListener('click', show_home_container);
-mobile_home.addEventListener('click', show_home_container);
-profile.addEventListener('click', show_profile_container);
-mobile_profile.addEventListener('click', show_profile_container);
-browse.addEventListener('click', show_browse_container); 
-mobile_browse.addEventListener('click', show_browse_container);
-
-//LOGOUT FUNCTION
-const logout = document.getElementById('logout');
-const mobile_logout = document.getElementById('mobile_logout');
-const logoutAnimation = document.getElementById('logout_animation');
-const logoutFuntion = () => {
-    localStorage.clear();
-    logoutAnimation.style.display = 'flex';
-    setTimeout(() => {
-        window.location.href = '/index.html';
-    }, 2000);
-};
-
-logout.addEventListener('click', logoutFuntion);
-mobile_logout.addEventListener('click', logoutFuntion);
-
-
-// FOR LEFT CONTAINER
-const header_item = document.querySelector('.header_item');
-const search_wrapper = document.querySelector('.sidebar_search_wrapper');
-const search_item = document.querySelectorAll('.sidebar_search_item');
-const navigations = document.querySelectorAll('.nav_button');
-//const extra_item = document.querySelector('.extra');
-const body = document.body;
-const hamburger = document.getElementById('hamburger');
-
-// FOR RIGHT CONTAINER
-const mobile_search_wrapper = document.querySelector('.mobile_search_wrapper');
-
-//SVGs
-const home_icon = `<svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path fill='#f5f8fa' d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></svg>`;
-const logout_icon = `<svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path d='M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z' fill='#f5f8fa'></path></svg>`;
-const check = `<svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path d='M12 2c6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' fill='#f5f8fa'/></svg>`;
-const profile_icon = `<svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' fill='#f5f8fa'/></svg>`;
-const browse_icon = `<svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path fill='#f5f8fa' d='M3 5H21V7H3zM3 11H21V13H3zM3 17H21V19H3z'></path></svg>`;
-
-hamburger.addEventListener('click', () => {
-    body.classList.toggle('collapsed');
-    carousel.classList.toggle('expand');
-    aetdCarousel.classList.toggle('expand');
-    bamCarousel.classList.toggle('expand');
-    CivilCarousel.classList.toggle('expand');
-    eedCarousel.classList.toggle('expand');
-    magedCarousel.classList.toggle('expand');
-    Viewer.classList.toggle('expand');
-    modal.classList.toggle('expand');
-
-    if (body.classList.contains('collapsed')) {
-        setTimeout(() => {
-            header_item.style.display = 'none';
-            search_wrapper.style.border = 'none';
-            search_wrapper.style.height = '4.6%';
-            search_item[0].style.display = 'none';
-            search_item[1].style.display = 'none';
-            navigations[0].innerHTML = `${home_icon}`;
-            navigations[1].innerHTML = `${browse_icon}`;
-            navigations[2].innerHTML = `${profile_icon}`;
-            navigations[3].innerHTML = `${logout_icon}`;
-            //mobile_search_wrapper.style.display = 'flex';
-        }, 70);
-    } else {
-        setTimeout(() => {
-            header_item.style.display = 'block';
-            search_wrapper.style.border = '1px solid var(--airforce_white)';
-            search_item[0].style.display = 'flex';
-            search_item[1].style.display = 'flex';
-            navigations[0].innerHTML = `${home_icon} Home`;
-            navigations[1].innerHTML = `${browse_icon} Browse`;
-            navigations[2].innerHTML = `${profile_icon} Profile`;
-            navigations[3].innerHTML = `${logout_icon} Logout`;
-        }, 250);
-    }
-});
-
-// FOR DASHBOARD
-const greetings = document.getElementById('greetings');
-const notices = document.querySelectorAll('.notice');
-const ProfileLetter = document.getElementById('profile_letter');
-const storedUserData = JSON.parse(localStorage.getItem('userData'));
-const NameMessage = document.getElementById('message');
-const ProfileLetter2 = document.getElementById('profile_letter2');
-
-greetings.textContent = 'Welcome,' + ' ' + storedUserData.Firstname.charAt(0).toUpperCase() + storedUserData.Firstname.slice(1).toLowerCase() + '.';
-ProfileLetter.textContent = storedUserData.Firstname.slice(0, 1).toUpperCase();
-NameMessage.textContent = 'Hello,' + ' ' + storedUserData.Firstname.charAt(0).toUpperCase() + storedUserData.Firstname.slice(1).toLowerCase() + '.';
-ProfileLetter2.textContent = storedUserData.Firstname.slice(0, 1).toUpperCase();
-notices[0].innerHTML = '✔';
-notices[3].innerHTML = storedUserData.MatricNumber.toUpperCase();
-notices[4].innerHTML = 'Coming Soon';
-notices[5].innerHTML = 'Coming Soon';
-
-const data=[
-    {title:'MTH 201',course:'Logic and Linear Algebra',pdfUrl:'/Images/features3.jpeg'},
-    {title:'PHY 201',course:'Physics',pdfUrl:`./Images/dashboard1.jpeg`},
-    {title:'MEC 229',course:'Fluid Mechanics',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'AEC 209',course:'Aircraft Structure',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'GNS 241',course:'Introduction to Psychology',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'AEC 201',course:'Aircraft Powerplant 1',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'AEC 213',course:'Digital Electronics and Programming',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'ENT 216',course:'Enterpreneurship',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'AEC 207',course:'Communication Principles',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'CAD & CAM',course:'Introduction to CAD & CAM',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'MEC 201',course:'Engineering Drawing',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'AEC 205',course:'Aircraft systems',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'AEC 203',course:'Aircraft Materials and Processes',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'CEC 209',course:'Civil Engineering Drawing',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'GNS 201',course:'Communication Skills',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'MTH 112',course:'Trigonometry and Analytical Geometry',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'BAM 205',course:'Cost Accounting 1',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'CEC 201',course:'Hyraulics and Hydrology',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'BAM 203',course:'Business Law',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'EEC 235',course:'Electrical/Electronics Instrument',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'MEC 217',course:'Technical Report Writing',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'EEC 209',course:'Electronics 2/PRACTICAL',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'SUG 208',course:'Engineering Surveying 1',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'BAM 211',course:'Principles of Management 1',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'MEC 215',course:'Foundry Tech and Forging Operation',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'EEC 237',course:'Telecommunication Engineering',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'CEC 205',course:'Theory of Structure 1',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'BAM 201',course:'Business Statistics',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'MEC 213',course:'Thermodynamics',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'EEC 239',course:'Electrical Circuit Theory',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'CEC 207',course:'Hydrogeology',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'BAM 213',course:'Office Management',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'MEC 212',course:'Engineering Measurement',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'ICT 201',course:'Introduction to C++ Programming',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'CEC 211',course:'Civil Engineering Construction',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'BAM 215',course:'Information Technology 2',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'EEC 125',course:'Electrical Engineering Science',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'EEC 233',course:'Electrical Machine 2',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'ICT 201',course:'Introduction to Computing',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'BAM 217',course:'Research Methodology',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'EEC 231',course:'Electrical Power System 2/Practical',pdfUrl:`/Images/dashboard1.jpeg`},
-    {title:'CEC 203',course:'Workshop Technology 2',pdfUrl:`/Images/dashboard1.jpeg`}
-];
-
-const list = document.getElementById('list');
-const title = document.getElementById('title');
-const course = document.getElementById('course');
-const saveButton = document.getElementById('saveButton');
-const error = document.getElementById('errorMessage');
-const mobileSearchButton = document.getElementById('mobileSearchButton');
-const searchButton = document.getElementById('sidebar_searchButton');
-const sidebarSearch = document.getElementById('sidebar_searchBar');
-const mobileSearch = document.getElementById('mobileSearchBar');
-
-function render(arr){
-    const shuffled = arr.sort(() => Math.random() - 0.5);
-    list.innerHTML='';
-    shuffled.forEach(i=>{
-    list.innerHTML+=`<div class='card'> 
-                        <div> <div>${i.title}</div> 
-                                <div>${i.course}</div> </div> <button class="view" data-pdf="${data.pdfUrl}">View</button> </div>`;
+    const DEPARTMENT_NAMES = Object.freeze({
+        AETD: "Aircraft Engineering",
+        BAM: "Business Administration",
+        CEED: "Civil Engineering",
+        EED: "Electrical Engineering",
+        MAGED: "Mechanical Engineering",
+        GENERAL: "General Studies"
     });
-}
 
-render(data);
+    const RESOURCES = Object.freeze([
+        {
+            id: "mth-201",
+            code: "MTH 201",
+            title: "Logic and Linear Algebra",
+            department: "GENERAL",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "phy-201",
+            code: "PHY 201",
+            title: "Physics",
+            department: "GENERAL",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "mec-229",
+            code: "MEC 229",
+            title: "Fluid Mechanics",
+            department: "MAGED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "aec-209",
+            code: "AEC 209",
+            title: "Aircraft Structure",
+            department: "AETD",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "gns-241",
+            code: "GNS 241",
+            title: "Introduction to Psychology",
+            department: "GENERAL",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "aec-201",
+            code: "AEC 201",
+            title: "Aircraft Powerplant I",
+            department: "AETD",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "aec-213",
+            code: "AEC 213",
+            title: "Digital Electronics and Programming",
+            department: "AETD",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "ent-216",
+            code: "ENT 216",
+            title: "Entrepreneurship",
+            department: "GENERAL",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "aec-207",
+            code: "AEC 207",
+            title: "Communication Principles",
+            department: "AETD",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "cad-cam",
+            code: "CAD & CAM",
+            title: "Introduction to CAD and CAM",
+            department: "MAGED",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "mec-201",
+            code: "MEC 201",
+            title: "Engineering Drawing",
+            department: "MAGED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "aec-205",
+            code: "AEC 205",
+            title: "Aircraft Systems",
+            department: "AETD",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "aec-203",
+            code: "AEC 203",
+            title: "Aircraft Materials and Processes",
+            department: "AETD",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "cec-209",
+            code: "CEC 209",
+            title: "Civil Engineering Drawing",
+            department: "CEED",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "gns-201",
+            code: "GNS 201",
+            title: "Communication Skills",
+            department: "GENERAL",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "mth-112",
+            code: "MTH 112",
+            title: "Trigonometry and Analytical Geometry",
+            department: "GENERAL",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "bam-205",
+            code: "BAM 205",
+            title: "Cost Accounting I",
+            department: "BAM",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "cec-201",
+            code: "CEC 201",
+            title: "Hydraulics and Hydrology",
+            department: "CEED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "bam-203",
+            code: "BAM 203",
+            title: "Business Law",
+            department: "BAM",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "eec-235",
+            code: "EEC 235",
+            title: "Electrical and Electronic Instruments",
+            department: "EED",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "mec-217",
+            code: "MEC 217",
+            title: "Technical Report Writing",
+            department: "MAGED",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "eec-209",
+            code: "EEC 209",
+            title: "Electronics II and Practical",
+            department: "EED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "sug-208",
+            code: "SUG 208",
+            title: "Engineering Surveying I",
+            department: "CEED",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "bam-211",
+            code: "BAM 211",
+            title: "Principles of Management I",
+            department: "BAM",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "mec-215",
+            code: "MEC 215",
+            title: "Foundry Technology and Forging Operations",
+            department: "MAGED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "eec-237",
+            code: "EEC 237",
+            title: "Telecommunication Engineering",
+            department: "EED",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "cec-205",
+            code: "CEC 205",
+            title: "Theory of Structures I",
+            department: "CEED",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "bam-201",
+            code: "BAM 201",
+            title: "Business Statistics",
+            department: "BAM",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "mec-213",
+            code: "MEC 213",
+            title: "Thermodynamics",
+            department: "MAGED",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "eec-239",
+            code: "EEC 239",
+            title: "Electrical Circuit Theory",
+            department: "EED",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "cec-207",
+            code: "CEC 207",
+            title: "Hydrogeology",
+            department: "CEED",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "bam-213",
+            code: "BAM 213",
+            title: "Office Management",
+            department: "BAM",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "mec-212",
+            code: "MEC 212",
+            title: "Engineering Measurement",
+            department: "MAGED",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "ict-201-cpp",
+            code: "ICT 201",
+            title: "Introduction to C++ Programming",
+            department: "EED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "cec-211",
+            code: "CEC 211",
+            title: "Civil Engineering Construction",
+            department: "CEED",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "bam-215",
+            code: "BAM 215",
+            title: "Information Technology II",
+            department: "BAM",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "eec-125",
+            code: "EEC 125",
+            title: "Electrical Engineering Science",
+            department: "EED",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "eec-233",
+            code: "EEC 233",
+            title: "Electrical Machines II",
+            department: "EED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "ict-201",
+            code: "ICT 201",
+            title: "Introduction to Computing",
+            department: "GENERAL",
+            image: "/images/features1.jpeg"
+        },
+        {
+            id: "bam-217",
+            code: "BAM 217",
+            title: "Research Methodology",
+            department: "BAM",
+            image: "/images/dashboard1.jpeg"
+        },
+        {
+            id: "eec-231",
+            code: "EEC 231",
+            title: "Electrical Power Systems II and Practical",
+            department: "EED",
+            image: "/images/features3.jpeg"
+        },
+        {
+            id: "cec-203",
+            code: "CEC 203",
+            title: "Workshop Technology II",
+            department: "CEED",
+            image: "/images/features2.jpeg"
+        },
+        {
+            id: "aec-109",
+            code: "AEC 109",
+            title: "Basic Electronics",
+            department: "AETD",
+            image: "/images/features1.jpeg"
+        }
+    ]);
 
-//For View and goback button
-const ViewButton = document.querySelectorAll('.view');
-const Viewer = document.getElementById('viewer');
-const modal = document.getElementById('modal');
-const goBack = document.getElementById('goBack');
-const List = document.getElementById('list');
+    const elements = {
+        loader:
+            document.getElementById("page-loader"),
 
-goBack.addEventListener('click', () => {
-    modal.style.display = 'none';
-})
+        loaderText:
+            document.getElementById("loader-text"),
 
+        toast:
+            document.getElementById("app-toast"),
 
+        sidebar:
+            document.getElementById("app-sidebar"),
 
-List.addEventListener('click', function(e){
-    if (e.target.classList.contains('view') || e.target.closest('.view')) {
-        modal.style.display = 'block';
-        const pdfUrl = e.currentTarget.dataset.pdf
-        Viewer.src = pdfUrl;
-        Viewer.style.display = 'block';
-        Viewer.scrollIntoView({ behavior: 'smooth'});
-        if (modal.style.display = 'block') {
-            notices[2].innerHTML = viewCount++ + ' ' + 'resources';
+        mobileBackdrop:
+            document.getElementById("mobile-backdrop"),
+
+        mobileMenuButton:
+            document.getElementById("mobile-menu-button"),
+
+        sidebarCollapseButton:
+            document.getElementById("sidebar-collapse-button"),
+
+        sidebarNavigationButtons: Array.from(
+            document.querySelectorAll(
+                "[data-view-target]"
+            )
+        ),
+
+        appViews: Array.from(
+            document.querySelectorAll(
+                "[data-app-view]"
+            )
+        ),
+
+        currentViewTitle:
+            document.getElementById("current-view-title"),
+
+        themeToggle:
+            document.getElementById("theme-toggle"),
+
+        logoutButton:
+            document.getElementById("logout-button"),
+
+        headerProfileButton:
+            document.getElementById("header-profile-button"),
+
+        browseResourcesButton:
+            document.getElementById("browse-resources-button"),
+
+        sidebarSearchForm:
+            document.getElementById("sidebar-search-form"),
+
+        sidebarSearchInput:
+            document.getElementById("sidebar-search-input"),
+
+        browseSearchForm:
+            document.getElementById("browse-search-form"),
+
+        browseSearchInput:
+            document.getElementById("browse-search-input"),
+
+        departmentFilter:
+            document.getElementById("department-filter"),
+
+        browseResultCount:
+            document.getElementById("browse-result-count"),
+
+        browseResourceList:
+            document.getElementById("browse-resource-list"),
+
+        showcaseTrack:
+            document.getElementById("showcase-resource-track"),
+
+        departmentSections:
+            document.getElementById("department-resource-sections"),
+
+        carouselButtons: Array.from(
+            document.querySelectorAll(
+                "[data-scroll-target]"
+            )
+        ),
+
+        welcomeName:
+            document.getElementById("welcome-name"),
+
+        welcomeProfileLetter:
+            document.getElementById("welcome-profile-letter"),
+
+        welcomeDepartment:
+            document.getElementById("welcome-department"),
+
+        welcomeDate:
+            document.getElementById("welcome-date"),
+
+        headerProfileLetter:
+            document.getElementById("header-profile-letter"),
+
+        headerProfileName:
+            document.getElementById("header-profile-name"),
+
+        headerProfileMatric:
+            document.getElementById("header-profile-matric"),
+
+        searchCount:
+            document.getElementById("search-count"),
+
+        viewCount:
+            document.getElementById("view-count"),
+
+        savedCount:
+            document.getElementById("saved-count"),
+
+        streakCount:
+            document.getElementById("streak-count"),
+
+        profileLargeLetter:
+            document.getElementById("profile-large-letter"),
+
+        profileHeading:
+            document.getElementById("profile-view-heading"),
+
+        profileDepartment:
+            document.getElementById("profile-department"),
+
+        profileFullName:
+            document.getElementById("profile-full-name"),
+
+        profileMatric:
+            document.getElementById("profile-matric-number"),
+
+        profileEmail:
+            document.getElementById("profile-email"),
+
+        profileDepartmentValue:
+            document.getElementById("profile-department-value"),
+
+        profileCreatedDate:
+            document.getElementById("profile-created-date"),
+
+        profileSearchCount:
+            document.getElementById("profile-search-count"),
+
+        profileViewCount:
+            document.getElementById("profile-view-count"),
+
+        profileSavedCount:
+            document.getElementById("profile-saved-count"),
+
+        profileStreakCount:
+            document.getElementById("profile-streak-count"),
+
+        profilePointsCount:
+            document.getElementById("profile-points-count"),
+
+        profileRewardLevel:
+            document.getElementById("profile-reward-level"),
+
+        resetActivityButton:
+            document.getElementById("reset-activity-button"),
+
+        currentYear:
+            document.getElementById("current-year"),
+
+        resourceDialog:
+            document.getElementById("resource-dialog"),
+
+        dialogCode:
+            document.getElementById("resource-dialog-code"),
+
+        dialogTitle:
+            document.getElementById("resource-dialog-title"),
+
+        dialogDepartment:
+            document.getElementById("resource-dialog-department"),
+
+        dialogImage:
+            document.getElementById("resource-preview-image"),
+
+        dialogSaveButton:
+            document.getElementById("dialog-save-button"),
+
+        closeDialogButton:
+            document.getElementById("close-resource-dialog")
+    };
+
+    const state = {
+        user: null,
+        activity: null,
+        activeView: "home",
+        searchTerm: "",
+        departmentFilter: "all",
+        selectedResourceId: null
+    };
+
+    const dateFormatter = new Intl.DateTimeFormat(
+        "en-NG",
+        {
+            dateStyle: "medium"
+        }
+    );
+
+    const fullDateFormatter = new Intl.DateTimeFormat(
+        "en-NG",
+        {
+            dateStyle: "full"
+        }
+    );
+
+    function safeParse(value, fallback) {
+        if (!value) {
+            return fallback;
+        }
+
+        try {
+            return JSON.parse(value);
+        } catch {
+            return fallback;
         }
     }
-})
 
-
-const searched = document.getElementById('searched');
-
-let searchedCount = 1;
-let viewCount = 1;
-
-
-//SIDEBAR SEARCH
-searchButton.addEventListener('click', () => {
-    if (sidebarSearch.value.length >= 1) {
-        render(data.filter(i=>i.title.trim().toLowerCase() && i.course.trim().toLowerCase().includes(sidebarSearch .value.trim().toLowerCase())))
-        notices[1].innerHTML = searchedCount++ + ' ' + 'resources';
-    } else {
-        return render(data);
+    function safeStorageGet(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch {
+            return null;
+        }
     }
-});
 
-
-//MOBILE SEARCH BAR
-mobileSearchButton.addEventListener('click', () => {
-    if (mobileSearch.value.length >= 1) {
-        render(data.filter(i=>i.title.trim().toLowerCase() && i.course.trim().toLowerCase().includes(mobileSearch.value.trim().toLowerCase())));
-        notices[1].innerHTML = searchedCount++ + ' ' + 'resources';
-    } else {
-        return render(data);
+    function safeStorageSet(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch {
+            return false;
+        }
     }
-});
 
-const carouselData=[
-    {title:'MTH 201',course:'Logic and Linear Algebra'},
-    {title:'PHY 201',course:'Physics'},
-    {title:'MEC 229',course:'Fluid Mechanics'},
-    {title:'AEC 209',course:'Aircraft Structure'},
-    {title:'GNS 241',course:'Introduction to Psychology'},
-    {title:'AEC 201',course:'Aircraft Powerplant 1'},
-    {title:'AEC 213',course:'Digital Electronics'},
-    {title:'ENT 216',course:'Enterpreneurship'},
-    {title:'AEC 207',course:'Communication Principles'},
-    {title:'CAD & CAM',course:'Introduction to CAD & CAM'},
-    {title:'MEC 201',course:'Engineering Drawing'},
-    {title:'AEC 205',course:'Aircraft systems'},
-    {title:'AEC 203',course:'Aircraft Materials and Processes'},
-    {title:'CEC 209',course:'Civil Engineering Drawing'},
-    {title:'GNS 201',course:'Communication Skills'},
-    {title:'MTH 112',course:'Trigonometry and Analytical Geometry'},
-    {title:'BAM 205',course:'Cost Accounting 1'},
-    {title:'CEC 201',course:'Hyraulics and Hydrology'},
-    {title:'BAM 203',course:'Business Law'},
-    {title:'EEC 235',course:'Electrical/Electronics Instrument'},
-    {title:'MEC 217',course:'Technical Report Writing'},
-    {title:'EEC 209',course:'Electronics 2/PRACTICAL'},
-    {title:'SUG 208',course:'Engineering Surveying 1'},
-    {title:'BAM 211',course:'Principles of Management 1'},
-    {title:'MEC 215',course:'Foundry Tech and Forging Operation'},
-    {title:'EEC 237',course:'Telecommunication Engineering'},
-    {title:'CEC 205',course:'Theory of Structure 1'},
-    {title:'BAM 201',course:'Business Statistics'},
-    {title:'MEC 213',course:'Thermodynamics'},
-    {title:'EEC 239',course:'Electrical Circuit Theory'},
-    {title:'CEC 207',course:'Hydrogeology'},
-    {title:'BAM 213',course:'Office Management'},
-    {title:'MEC 212',course:'Engineering Measurement'},
-    {title:'ICT 201',course:'Introduction to C++ Programming'},
-    {title:'CEC 211',course:'Civil Engineering Construction'},
-    {title:'BAM 215',course:'Information Technology 2'},
-    {title:'EEC 125',course:'Electrical Engineering Science'},
-    {title:'EEC 233',course:'Electrical Machine 2'},
-    {title:'ICT 201',course:'Introduction to Computing'},
-    {title:'BAM 217',course:'Research Methodology'},
-    {title:'EEC 231',course:'Electrical Power System 2/Practical'},
-    {title:'CEC 203',course:'Workshop Technology 2'}
-];
+    function cleanText(value, maximumLength = 100) {
+        return String(value ?? "")
+            .replace(/[\u0000-\u001F\u007F]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, maximumLength);
+    }
 
-const carousel = document.getElementById('carousel');
+    function createElement(
+        tagName,
+        className,
+        text
+    ) {
+        const element =
+            document.createElement(tagName);
 
-function renderRandom(arr){
-    //shuffle Array
-    const shuffledData = arr.sort(() => Math.random() - 0.5);
-    carousel.innerHTML='';
-    shuffledData.forEach(i=>{
-    carousel.innerHTML+=`<div class='carouselCard'> 
-                        <div> <div>${i.title}</div> 
-                                <div>${i.course}</div> </div> </div>`;
-    });
-}
+        if (className) {
+            element.className = className;
+        }
 
-renderRandom(carouselData);
+        if (typeof text === "string") {
+            element.textContent = text;
+        }
 
-//AIRCRAFT DEPARTMENT
-const aetdCarouselData=[
-    {title:'MTH 201',course:'Logic and Linear Algebra'},
-    {title:'PHY 201',course:'Physics'},
-    {title:'MEC 229',course:'Fluid Mechanics'},
-    {title:'AEC 209',course:'Aircraft Structure'},
-    {title:'GNS 241',course:'Introduction to Psychology'},
-    {title:'AEC 201',course:'Aircraft Powerplant 1'},
-    {title:'AEC 213',course:'Digital Electronics'},
-    {title:'ENT 216',course:'Enterpreneurship'},
-    {title:'AEC 207',course:'Communication Principles'},
-    {title:'CAD & CAM',course:'Introduction to CAD & CAM'},
-    {title:'MEC 201',course:'Engineering Drawing'},
-    {title:'AEC 205',course:'Aircraft systems'},
-    {title:'AEC 203',course:'Aircraft Materials and Processes'},
-    {title:'AEC 109',course:'Basic Electronics'}
-];
-const aetdCarousel = document.getElementById('aetd');
-function renderRandomAETD(arr){
-    //shuffle Array
-    const shuffledAETDData = arr.sort(() => Math.random() - 0.5);
-    aetdCarousel.innerHTML='';
-    shuffledAETDData.forEach(i=>{
-    aetdCarousel.innerHTML+=`<div class='aetdCarouselCard'> 
-                        <div> <div>${i.title}</div> 
-                                <div>${i.course}</div> </div> </div>`;
-    });
-}
-renderRandomAETD(aetdCarouselData);
+        return element;
+    }
 
-//BUSINESS ADMIN DEPARTMENT
-const bamCarouselData=[
-    {title:'BAM 205',course:'Cost Accounting 1'},
-    {title:'GNS 201',course:'Communication Skills'},
-    {title:'BAM 203',course:'Business Law'},
-    {title:'BAM 211',course:'Principles of Management 1'},
-    {title:'BAM 201',course:'Business Statistics'},
-    {title:'BAM 213',course:'Office Management'},
-    {title:'BAM 215',course:'Information Technology 2'},
-    {title:'ENT 216',course:'Enterpreneurship'},
-    {title:'BAM 217',course:'Research Methodology'}
-];
-const bamCarousel = document.getElementById('bam');
-function renderRandomBAM(arr){
-    //shuffle Array
-    const shuffledBAMData = arr.sort(() => Math.random() - 0.5);
-    bamCarousel.innerHTML='';
-    shuffledBAMData.forEach(i=>{
-    bamCarousel.innerHTML+=`<div class='bamCarouselCard'> 
-                        <div> <div>${i.title}</div> 
-                                <div>${i.course}</div> </div> </div>`;
-    });
-}
-renderRandomBAM(bamCarouselData);
+    function getUsers() {
+        const users = safeParse(
+            safeStorageGet(CONFIG.usersKey),
+            []
+        );
 
-//CIVIL DEPARTMENT
-const CivilCarouselData=[
-    {title:'CEC 209',course:'Civil Engineering Drawing'},
-    {title:'MTH 112',course:'Trigonometry and Analytical Geometry'},
-    {title:'CEC 201',course:'Hyraulics and Hydrology'},
-    {title:'SUG 208',course:'Engineering Surveying 1'},
-    {title:'CEC 205',course:'Theory of Structure 1'},
-    {title:'CEC 207',course:'Hydrogeology'},
-    {title:'ENT 216',course:'Enterpreneurship'},
-    {title:'CEC 211',course:'Civil Engineering Construction'},
-    {title:'ICT 201',course:'Introduction to Computing'},
-    {title:'CEC 203',course:'Workshop Technology 2'}
-];
-const CivilCarousel = document.getElementById('civil');
-function renderRandomCEED(arr){
-    //shuffle Array
-    const shuffledCEEDData = arr.sort(() => Math.random() - 0.5);
-    CivilCarousel.innerHTML='';
-    shuffledCEEDData.forEach(i=>{
-    CivilCarousel.innerHTML+=`<div class='CivilCarouselCard'> 
-                        <div> <div>${i.title}</div> 
-                                <div>${i.course}</div> </div> </div>`;
-    });
-}
-renderRandomCEED(CivilCarouselData);
+        return Array.isArray(users)
+            ? users
+            : [];
+    }
 
-//ELECTRICAL DEPARTMENT
-const eedCarouselData=[
-    {title:'MTH 201',course:'Logic and Linear Algebra'},
-    {title:'MEC 201',course:'Engineering Drawing'},
-    {title:'ENT 216',course:'Enterpreneurship'},
-    {title:'EEC 235',course:'Electrical/Electronics Instrument'},
-    {title:'EEC 209',course:'Electronics 2/PRACTICAL'},
-    {title:'EEC 237',course:'Telecommunication Engineering'},
-    {title:'EEC 239',course:'Electrical Circuit Theory'},
-    {title:'ICT 201',course:'Introduction to C++ Programming'},
-    {title:'EEC 233',course:'Electrical Machine 2'},
-    {title:'EEC 231',course:'Electrical Power System 2/Practical'}
-];
-const eedCarousel = document.getElementById('eed');
-function renderRandomEED(arr){
-    //shuffle Array
-    const shuffledEEDData = arr.sort(() => Math.random() - 0.5);
-    eedCarousel.innerHTML='';
-    shuffledEEDData.forEach(i=>{
-    eedCarousel.innerHTML+=`<div class='eedCarouselCard'> 
-                        <div> <div>${i.title}</div> 
-                                <div>${i.course}</div> </div> </div>`;
-    });
-}
-renderRandomEED(eedCarouselData);
+    function getSession() {
+        return safeParse(
+            safeStorageGet(CONFIG.sessionKey),
+            null
+        );
+    }
 
-//MECHANICAL DEPARTMENT
-const magedCarouselData=[
-    {title:'MTH 201',course:'Logic and Linear Algebra'},
-    {title:'MEC 201',course:'Engineering Drawing'},
-    {title:'ENT 216',course:'Enterpreneurship'},
-    {title:'MEC 229',course:'Fluid Mechanics'},
-    {title:'GNS 241',course:'Introduction to Psychology'},
-    {title:'MEC 217',course:'Technical Report Writing'},
-    {title:'CAD & CAM',course:'Introduction to CAD & CAM'},
-    {title:'MEC 215',course:'Foundry Tech and Forging Operation'},
-    {title:'MEC 213',course:'Thermodynamics'},
-    {title:'MEC 212',course:'Engineering Measurement'},
-    {title:'EEC 125',course:'Electrical Engineering Science'},
-];
-const magedCarousel = document.getElementById('maged');
-function renderRandomMAGED(arr){
-    //shuffle Array
-    const shuffledMAGEDData = arr.sort(() => Math.random() - 0.5);
-    magedCarousel.innerHTML='';
-    shuffledMAGEDData.forEach(i=>{
-    magedCarousel.innerHTML+=`<div class='magedCarouselCard'> 
-                        <div> <div>${i.title}</div> 
-                                <div>${i.course}</div> </div> </div>`;
-    });
-}
-renderRandomMAGED(magedCarouselData);
+    function getActivityKey() {
+        return `${CONFIG.activityPrefix}${state.user.id}`;
+    }
 
-const leftButton = document.getElementById('left');
-const rightButton = document.getElementById('right');
-const aetdleftButton = document.getElementById('aetdleft');
-const aetdrightButton = document.getElementById('aetdright');
-const bamleftButton = document.getElementById('bamleft');
-const bamrightButton = document.getElementById('bamright');
-const ceedleftButton = document.getElementById('civilleft');
-const ceedrightButton = document.getElementById('civilright');
-const eedleftButton = document.getElementById('eedleft');
-const eedrightButton = document.getElementById('eedright');
-const magedleftButton = document.getElementById('magedleft');
-const magedrightButton = document.getElementById('magedright');
+    function getTodayString(date = new Date()) {
+        const year = date.getFullYear();
 
-let currentIndex = 0;
+        const month = String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
 
-function getScrollAmount(){
-    const card = carousel.querySelector('.carouselCard');
-    if (!card) return 300;
-    return card.offsetWidth + 20;
-}
+        const day = String(
+            date.getDate()
+        ).padStart(2, "0");
 
-rightButton.onclick = () => {
-    carousel.scrollBy({left: getScrollAmount(), behavior:'smooth'});
-}
+        return `${year}-${month}-${day}`;
+    }
 
-leftButton.onclick = () => {
-    carousel.scrollBy({left: -getScrollAmount(), behavior:'smooth'});
-}
+    function getYesterdayString() {
+        const yesterday = new Date();
 
-aetdrightButton.onclick = () => {
-    aetdCarousel.scrollBy({left: getScrollAmount(), behavior:'smooth'});
-}
+        yesterday.setDate(
+            yesterday.getDate() - 1
+        );
 
-aetdleftButton.onclick = () => {
-    aetdCarousel.scrollBy({left: -getScrollAmount(), behavior:'smooth'});
-}
+        return getTodayString(yesterday);
+    }
 
-bamrightButton.onclick = () => {
-    bamCarousel.scrollBy({left: getScrollAmount(), behavior:'smooth'});
-}
+    function createDefaultActivity() {
+        return {
+            searchCount: 0,
+            viewedIds: [],
+            savedIds: [],
+            studyPoints: 0,
+            streak: 1,
+            lastVisitDate: getTodayString()
+        };
+    }
 
-bamleftButton.onclick = () => {
-    bamCarousel.scrollBy({left: -getScrollAmount(), behavior:'smooth'});
-}
+    function normaliseActivity(activity) {
+        const safeActivity =
+            activity &&
+            typeof activity === "object"
+                ? activity
+                : createDefaultActivity();
 
-ceedrightButton.onclick = () => {
-    CivilCarousel.scrollBy({left: getScrollAmount(), behavior:'smooth'});
-}
+        return {
+            searchCount:
+                Number(safeActivity.searchCount) ||
+                0,
 
-ceedleftButton.onclick = () => {
-    CivilCarousel.scrollBy({left: -getScrollAmount(), behavior:'smooth'});
-}
+            viewedIds:
+                Array.isArray(safeActivity.viewedIds)
+                    ? safeActivity.viewedIds.filter(
+                        (value) =>
+                            typeof value ===
+                            "string"
+                    )
+                    : [],
 
-eedrightButton.onclick = () => {
-    eedCarousel.scrollBy({left: getScrollAmount(), behavior:'smooth'});
-}
+            savedIds:
+                Array.isArray(safeActivity.savedIds)
+                    ? safeActivity.savedIds.filter(
+                        (value) =>
+                            typeof value ===
+                            "string"
+                    )
+                    : [],
 
-eedleftButton.onclick = () => {
-    eedCarousel.scrollBy({left: -getScrollAmount(), behavior:'smooth'});
-}
+            studyPoints:
+                Number(safeActivity.studyPoints) ||
+                0,
 
-magedrightButton.onclick = () => {
-    magedCarousel.scrollBy({left: getScrollAmount(), behavior:'smooth'});
-}
+            streak:
+                Number(safeActivity.streak) ||
+                1,
 
-magedleftButton.onclick = () => {
-    magedCarousel.scrollBy({left: -getScrollAmount(), behavior:'smooth'});
-}
+            lastVisitDate:
+                cleanText(
+                    safeActivity.lastVisitDate,
+                    10
+                ) || getTodayString()
+        };
+    }
 
-//Disable button at start or end
-carousel.addEventListener('scroll', () => {
-    leftButton.disabled = carousel.scrollLeft <= 0;
-    rightButton.disabled = carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 5;
-});
+    function loadActivity() {
+        return normaliseActivity(
+            safeParse(
+                safeStorageGet(
+                    getActivityKey()
+                ),
+                createDefaultActivity()
+            )
+        );
+    }
 
-aetdCarousel.addEventListener('scroll', () => {
-    aetdleftButton.disabled = aetdCarousel.scrollLeft <= 0;
-    aetdrightButton.disabled = aetdCarousel.scrollLeft >= aetdCarousel.scrollWidth - aetdCarousel.clientWidth - 5;
-});
+    function saveActivity() {
+        return safeStorageSet(
+            getActivityKey(),
+            JSON.stringify(state.activity)
+        );
+    }
 
-bamCarousel.addEventListener('scroll', () => {
-    bamleftButton.disabled = bamCarousel.scrollLeft <= 0;
-    bamrightButton.disabled = bamCarousel.scrollLeft >= bamCarousel.scrollWidth - bamCarousel.clientWidth - 5;
-});
+    function updateDailyStreak() {
+        const today = getTodayString();
 
-CivilCarousel.addEventListener('scroll', () => {
-    ceedleftButton.disabled = CivilCarousel.scrollLeft <= 0;
-    ceedrightButton.disabled = CivilCarousel.scrollLeft >= CivilCarousel.scrollWidth - CivilCarousel.clientWidth - 5;
-});
+        if (
+            state.activity.lastVisitDate ===
+            today
+        ) {
+            return;
+        }
 
-eedCarousel.addEventListener('scroll', () => {
-    eedleftButton.disabled = eedCarousel.scrollLeft <= 0;
-    eedrightButton.disabled = eedCarousel.scrollLeft >= eedCarousel.scrollWidth - eedCarousel.clientWidth - 5;
-});
+        if (
+            state.activity.lastVisitDate ===
+            getYesterdayString()
+        ) {
+            state.activity.streak += 1;
+        } else {
+            state.activity.streak = 1;
+        }
 
-magedCarousel.addEventListener('scroll', () => {
-    magedleftButton.disabled = magedCarousel.scrollLeft <= 0;
-    magedrightButton.disabled = magedCarousel.scrollLeft >= magedCarousel.scrollWidth - magedCarousel.clientWidth - 5;
-});
+        state.activity.lastVisitDate =
+            today;
+
+        state.activity.studyPoints += 5;
+
+        saveActivity();
+    }
+
+    function getInitials(name) {
+        return cleanText(name, 80)
+            .split(" ")
+            .filter(Boolean)
+            .slice(0, 2)
+            .map((part) =>
+                part.charAt(0).toUpperCase()
+            )
+            .join("");
+    }
+
+    function getRewardLevel(points) {
+        if (points >= 300) {
+            return "Scholar";
+        }
+
+        if (points >= 150) {
+            return "Focused";
+        }
+
+        if (points >= 60) {
+            return "Consistent";
+        }
+
+        return "Starter";
+    }
+
+    function shuffleCopy(items) {
+        const copiedItems = [...items];
+
+        for (
+            let index =
+                copiedItems.length - 1;
+            index > 0;
+            index -= 1
+        ) {
+            const randomIndex = Math.floor(
+                Math.random() *
+                    (index + 1)
+            );
+
+            [
+                copiedItems[index],
+                copiedItems[randomIndex]
+            ] = [
+                copiedItems[randomIndex],
+                copiedItems[index]
+            ];
+        }
+
+        return copiedItems;
+    }
+
+    function showLoader(
+        visible,
+        message = "Loading..."
+    ) {
+        if (!elements.loader) {
+            return;
+        }
+
+        elements.loaderText.textContent =
+            message;
+
+        elements.loader.classList.toggle(
+            "is-visible",
+            visible
+        );
+    }
+
+    function showToast(
+        message,
+        type = "success"
+    ) {
+        window.clearTimeout(showToast.timer);
+
+        elements.toast.textContent = message;
+
+        elements.toast.className =
+            `toast is-visible is-${type}`;
+
+        showToast.timer = window.setTimeout(
+            () => {
+                elements.toast.className =
+                    "toast";
+            },
+            3200
+        );
+    }
+
+    function applyTheme(theme) {
+        const safeTheme =
+            theme === "light"
+                ? "light"
+                : "dark";
+
+        const isDark =
+            safeTheme === "dark";
+
+        document.documentElement.dataset.theme =
+            safeTheme;
+
+        elements.themeToggle?.setAttribute(
+            "aria-pressed",
+            String(isDark)
+        );
+
+        elements.themeToggle?.setAttribute(
+            "aria-label",
+            isDark
+                ? "Switch to light mode"
+                : "Switch to dark mode"
+        );
+
+        const icon =
+            elements.themeToggle?.querySelector(
+                ".theme-toggle__icon"
+            );
+
+        const text =
+            elements.themeToggle?.querySelector(
+                ".theme-toggle__text"
+            );
+
+        if (icon) {
+            icon.textContent =
+                isDark ? "☀" : "☾";
+        }
+
+        if (text) {
+            text.textContent =
+                isDark
+                    ? "Light mode"
+                    : "Dark mode";
+        }
+    }
+
+    function initialiseTheme() {
+        const storedTheme = safeStorageGet(
+            CONFIG.themeKey
+        );
+
+        const systemDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        ).matches;
+
+        const theme =
+            storedTheme === "light" ||
+            storedTheme === "dark"
+                ? storedTheme
+                : systemDark
+                    ? "dark"
+                    : "light";
+
+        applyTheme(theme);
+    }
+
+    function toggleTheme() {
+        const nextTheme =
+            document.documentElement.dataset.theme ===
+            "dark"
+                ? "light"
+                : "dark";
+
+        applyTheme(nextTheme);
+
+        safeStorageSet(
+            CONFIG.themeKey,
+            nextTheme
+        );
+
+        showToast(
+            `${nextTheme === "dark" ? "Dark" : "Light"} mode enabled.`,
+            "success"
+        );
+    }
+
+    function initialiseCurrentUser() {
+        const session = getSession();
+
+        if (!session?.userId) {
+            window.location.href =
+                "/login/afit studypal-login.html";
+
+            return false;
+        }
+
+        const user = getUsers().find(
+            (item) =>
+                item.id === session.userId
+        );
+
+        if (!user) {
+            localStorage.removeItem(
+                CONFIG.sessionKey
+            );
+
+            window.location.href =
+                "/login/afit studypal-login.html";
+
+            return false;
+        }
+
+        state.user = user;
+        state.activity = loadActivity();
+
+        updateDailyStreak();
+
+        return true;
+    }
+
+    function populateUserInterface() {
+        const fullName = [
+            state.user.firstName,
+            state.user.lastName
+        ]
+            .filter(Boolean)
+            .join(" ");
+
+        const firstName =
+            cleanText(
+                state.user.firstName,
+                40
+            ) || "Student";
+
+        const initial =
+            getInitials(fullName).charAt(0) ||
+            "S";
+
+        elements.welcomeName.textContent =
+            firstName;
+
+        elements.welcomeProfileLetter.textContent =
+            initial;
+
+        elements.welcomeDepartment.textContent =
+            state.user.department ||
+            "General Studies";
+
+        elements.welcomeDate.textContent =
+            fullDateFormatter.format(
+                new Date()
+            );
+
+        elements.headerProfileLetter.textContent =
+            initial;
+
+        elements.headerProfileName.textContent =
+            firstName;
+
+        elements.headerProfileMatric.textContent =
+            state.user.matricNumber;
+
+        elements.profileLargeLetter.textContent =
+            initial;
+
+        elements.profileHeading.textContent =
+            fullName;
+
+        elements.profileDepartment.textContent =
+            state.user.department;
+
+        elements.profileFullName.textContent =
+            fullName;
+
+        elements.profileMatric.textContent =
+            state.user.matricNumber;
+
+        elements.profileEmail.textContent =
+            state.user.email ||
+            "Not provided";
+
+        elements.profileDepartmentValue.textContent =
+            state.user.department;
+
+        elements.profileCreatedDate.textContent =
+            state.user.createdAt
+                ? dateFormatter.format(
+                    new Date(
+                        state.user.createdAt
+                    )
+                )
+                : "Unavailable";
+
+        if (elements.currentYear) {
+            elements.currentYear.textContent =
+                String(new Date().getFullYear());
+        }
+    }
+
+    function renderStatistics() {
+        const viewedCount =
+            state.activity.viewedIds.length;
+
+        const savedCount =
+            state.activity.savedIds.length;
+
+        const streakLabel =
+            `${state.activity.streak} ${
+                state.activity.streak === 1
+                    ? "day"
+                    : "days"
+            }`;
+
+        elements.searchCount.textContent =
+            String(
+                state.activity.searchCount
+            );
+
+        elements.viewCount.textContent =
+            String(viewedCount);
+
+        elements.savedCount.textContent =
+            String(savedCount);
+
+        elements.streakCount.textContent =
+            streakLabel;
+
+        elements.profileSearchCount.textContent =
+            String(
+                state.activity.searchCount
+            );
+
+        elements.profileViewCount.textContent =
+            String(viewedCount);
+
+        elements.profileSavedCount.textContent =
+            String(savedCount);
+
+        elements.profileStreakCount.textContent =
+            streakLabel;
+
+        elements.profilePointsCount.textContent =
+            String(
+                state.activity.studyPoints
+            );
+
+        elements.profileRewardLevel.textContent =
+            getRewardLevel(
+                state.activity.studyPoints
+            );
+    }
+
+    function createResourceCard(
+        resource,
+        compact = false
+    ) {
+        const card = createElement(
+            "article",
+            compact
+                ? "resource-card resource-card--compact"
+                : "resource-card"
+        );
+
+        const top = createElement(
+            "div",
+            "resource-card__top"
+        );
+
+        const department = createElement(
+            "span",
+            "resource-card__department",
+            resource.department
+        );
+
+        const savedButton = createElement(
+            "button",
+            state.activity.savedIds.includes(
+                resource.id
+            )
+                ? "resource-save-button is-saved"
+                : "resource-save-button",
+            state.activity.savedIds.includes(
+                resource.id
+            )
+                ? "★"
+                : "☆"
+        );
+
+        savedButton.type = "button";
+
+        savedButton.dataset.resourceAction =
+            "save";
+
+        savedButton.dataset.resourceId =
+            resource.id;
+
+        savedButton.setAttribute(
+            "aria-label",
+            state.activity.savedIds.includes(
+                resource.id
+            )
+                ? `Remove ${resource.code} from saved resources`
+                : `Save ${resource.code}`
+        );
+
+        top.append(
+            department,
+            savedButton
+        );
+
+        const code = createElement(
+            "h3",
+            "",
+            resource.code
+        );
+
+        const title = createElement(
+            "p",
+            "",
+            resource.title
+        );
+
+        const departmentName =
+            createElement(
+                "small",
+                "",
+                DEPARTMENT_NAMES[
+                    resource.department
+                ]
+            );
+
+        const previewButton = createElement(
+            "button",
+            "button button--primary resource-card__button",
+            "View resource"
+        );
+
+        previewButton.type = "button";
+
+        previewButton.dataset.resourceAction =
+            "view";
+
+        previewButton.dataset.resourceId =
+            resource.id;
+
+        card.append(
+            top,
+            code,
+            title,
+            departmentName,
+            previewButton
+        );
+
+        return card;
+    }
+
+    function renderShowcase() {
+        elements.showcaseTrack.replaceChildren();
+
+        const fragment =
+            document.createDocumentFragment();
+
+        shuffleCopy(RESOURCES)
+            .slice(0, 8)
+            .forEach((resource) => {
+                fragment.appendChild(
+                    createResourceCard(
+                        resource,
+                        true
+                    )
+                );
+            });
+
+        elements.showcaseTrack.appendChild(
+            fragment
+        );
+    }
+
+    function createDepartmentSection(
+        departmentCode
+    ) {
+        const section = createElement(
+            "section",
+            "department-resource-section"
+        );
+
+        const heading = createElement(
+            "div",
+            "department-resource-section__heading"
+        );
+
+        const headingText =
+            createElement("div");
+
+        headingText.append(
+            createElement(
+                "small",
+                "",
+                departmentCode
+            ),
+
+            createElement(
+                "h3",
+                "",
+                DEPARTMENT_NAMES[
+                    departmentCode
+                ]
+            )
+        );
+
+        const controls = createElement(
+            "div",
+            "carousel-controls"
+        );
+
+        const trackId =
+            `department-track-${departmentCode.toLowerCase()}`;
+
+        const previousButton =
+            createElement(
+                "button",
+                "",
+                "←"
+            );
+
+        previousButton.type = "button";
+
+        previousButton.dataset.scrollTarget =
+            trackId;
+
+        previousButton.dataset.scrollDirection =
+            "-1";
+
+        previousButton.setAttribute(
+            "aria-label",
+            `Scroll ${DEPARTMENT_NAMES[departmentCode]} resources left`
+        );
+
+        const nextButton =
+            createElement(
+                "button",
+                "",
+                "→"
+            );
+
+        nextButton.type = "button";
+
+        nextButton.dataset.scrollTarget =
+            trackId;
+
+        nextButton.dataset.scrollDirection =
+            "1";
+
+        nextButton.setAttribute(
+            "aria-label",
+            `Scroll ${DEPARTMENT_NAMES[departmentCode]} resources right`
+        );
+
+        controls.append(
+            previousButton,
+            nextButton
+        );
+
+        heading.append(
+            headingText,
+            controls
+        );
+
+        const track = createElement(
+            "div",
+            "resource-track"
+        );
+
+        track.id = trackId;
+
+        RESOURCES.filter(
+            (resource) =>
+                resource.department ===
+                departmentCode
+        ).forEach((resource) => {
+            track.appendChild(
+                createResourceCard(
+                    resource,
+                    true
+                )
+            );
+        });
+
+        section.append(
+            heading,
+            track
+        );
+
+        return section;
+    }
+
+    function renderDepartmentSections() {
+        elements.departmentSections.replaceChildren();
+
+        [
+            "AETD",
+            "BAM",
+            "CEED",
+            "EED",
+            "MAGED"
+        ].forEach((departmentCode) => {
+            elements.departmentSections.appendChild(
+                createDepartmentSection(
+                    departmentCode
+                )
+            );
+        });
+    }
+
+    function getFilteredResources() {
+        const query =
+            state.searchTerm.toLowerCase();
+
+        return RESOURCES.filter(
+            (resource) => {
+                const searchText = [
+                    resource.code,
+                    resource.title,
+                    resource.department,
+                    DEPARTMENT_NAMES[
+                        resource.department
+                    ]
+                ]
+                    .join(" ")
+                    .toLowerCase();
+
+                const matchesSearch =
+                    searchText.includes(query);
+
+                let matchesDepartment = true;
+
+                if (
+                    state.departmentFilter ===
+                    "saved"
+                ) {
+                    matchesDepartment =
+                        state.activity.savedIds.includes(
+                            resource.id
+                        );
+                } else if (
+                    state.departmentFilter !==
+                    "all"
+                ) {
+                    matchesDepartment =
+                        resource.department ===
+                        state.departmentFilter;
+                }
+
+                return (
+                    matchesSearch &&
+                    matchesDepartment
+                );
+            }
+        );
+    }
+
+    function renderBrowseResources() {
+        const resources =
+            getFilteredResources();
+
+        elements.browseResultCount.textContent =
+            String(resources.length);
+
+        elements.browseResourceList.replaceChildren();
+
+        if (resources.length === 0) {
+            const emptyState =
+                createElement(
+                    "div",
+                    "empty-state"
+                );
+
+            emptyState.append(
+                createElement(
+                    "span",
+                    "empty-state__icon",
+                    "⌕"
+                ),
+
+                createElement(
+                    "h3",
+                    "",
+                    "No resources found"
+                ),
+
+                createElement(
+                    "p",
+                    "",
+                    "Try another search term or department filter."
+                )
+            );
+
+            elements.browseResourceList.appendChild(
+                emptyState
+            );
+
+            return;
+        }
+
+        const fragment =
+            document.createDocumentFragment();
+
+        resources.forEach((resource) => {
+            fragment.appendChild(
+                createResourceCard(resource)
+            );
+        });
+
+        elements.browseResourceList.appendChild(
+            fragment
+        );
+    }
+
+    function showView(viewName) {
+        const targetView =
+            elements.appViews.find(
+                (view) =>
+                    view.dataset.appView ===
+                    viewName
+            );
+
+        if (!targetView) {
+            return;
+        }
+
+        state.activeView = viewName;
+
+        elements.appViews.forEach((view) => {
+            const isTarget =
+                view === targetView;
+
+            view.hidden = !isTarget;
+
+            view.classList.toggle(
+                "is-active",
+                isTarget
+            );
+        });
+
+        elements.sidebarNavigationButtons.forEach(
+            (button) => {
+                button.classList.toggle(
+                    "is-active",
+                    button.dataset
+                        .viewTarget ===
+                        viewName
+                );
+            }
+        );
+
+        const titles = {
+            home: "Dashboard",
+            browse: "Browse resources",
+            profile: "Student profile"
+        };
+
+        elements.currentViewTitle.textContent =
+            titles[viewName];
+
+        if (viewName === "browse") {
+            renderBrowseResources();
+
+            window.setTimeout(() => {
+                elements.browseSearchInput.focus();
+            }, 100);
+        }
+
+        closeMobileSidebar();
+
+        window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches
+                ? "auto"
+                : "smooth"
+        });
+    }
+
+    function openMobileSidebar() {
+        elements.sidebar.classList.add(
+            "is-mobile-open"
+        );
+
+        elements.mobileBackdrop.classList.add(
+            "is-visible"
+        );
+
+        elements.mobileMenuButton.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+    }
+
+    function closeMobileSidebar() {
+        elements.sidebar.classList.remove(
+            "is-mobile-open"
+        );
+
+        elements.mobileBackdrop.classList.remove(
+            "is-visible"
+        );
+
+        elements.mobileMenuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+    function toggleSidebarCollapse() {
+        document.body.classList.toggle(
+            "sidebar-collapsed"
+        );
+
+        const collapsed =
+            document.body.classList.contains(
+                "sidebar-collapsed"
+            );
+
+        safeStorageSet(
+            CONFIG.sidebarKey,
+            String(collapsed)
+        );
+
+        elements.sidebarCollapseButton.setAttribute(
+            "aria-label",
+            collapsed
+                ? "Expand sidebar"
+                : "Collapse sidebar"
+        );
+    }
+
+    function initialiseSidebarState() {
+        const collapsed =
+            safeStorageGet(CONFIG.sidebarKey) ===
+            "true";
+
+        document.body.classList.toggle(
+            "sidebar-collapsed",
+            collapsed
+        );
+    }
+
+    function openResource(resourceId) {
+        const resource = RESOURCES.find(
+            (item) =>
+                item.id === resourceId
+        );
+
+        if (!resource) {
+            showToast(
+                "That resource could not be found.",
+                "error"
+            );
+
+            return;
+        }
+
+        state.selectedResourceId =
+            resource.id;
+
+        elements.dialogCode.textContent =
+            resource.code;
+
+        elements.dialogTitle.textContent =
+            resource.title;
+
+        elements.dialogDepartment.textContent =
+            DEPARTMENT_NAMES[
+                resource.department
+            ];
+
+        elements.dialogImage.src =
+            resource.image;
+
+        elements.dialogImage.alt =
+            `Sample preview for ${resource.code} ${resource.title}`;
+
+        updateDialogSaveButton(resource);
+
+        if (
+            !state.activity.viewedIds.includes(
+                resource.id
+            )
+        ) {
+            state.activity.viewedIds.push(
+                resource.id
+            );
+
+            state.activity.studyPoints += 10;
+
+            saveActivity();
+            renderStatistics();
+        }
+
+        if (
+            typeof elements.resourceDialog
+                .showModal === "function"
+        ) {
+            elements.resourceDialog.showModal();
+        } else {
+            elements.resourceDialog.setAttribute(
+                "open",
+                ""
+            );
+        }
+    }
+
+    function closeResourceDialog() {
+        state.selectedResourceId = null;
+
+        if (elements.resourceDialog.open) {
+            elements.resourceDialog.close();
+        } else {
+            elements.resourceDialog.removeAttribute(
+                "open"
+            );
+        }
+    }
+
+    function updateDialogSaveButton(resource) {
+        const isSaved =
+            state.activity.savedIds.includes(
+                resource.id
+            );
+
+        elements.dialogSaveButton.textContent =
+            isSaved
+                ? "Remove from saved"
+                : "Save resource";
+
+        elements.dialogSaveButton.classList.toggle(
+            "button--danger",
+            isSaved
+        );
+
+        elements.dialogSaveButton.classList.toggle(
+            "button--primary",
+            !isSaved
+        );
+    }
+
+    function toggleSavedResource(resourceId) {
+        const resource = RESOURCES.find(
+            (item) =>
+                item.id === resourceId
+        );
+
+        if (!resource) {
+            return;
+        }
+
+        const savedIndex =
+            state.activity.savedIds.indexOf(
+                resource.id
+            );
+
+        if (savedIndex === -1) {
+            state.activity.savedIds.push(
+                resource.id
+            );
+
+            state.activity.studyPoints += 5;
+
+            showToast(
+                `${resource.code} saved.`,
+                "success"
+            );
+        } else {
+            state.activity.savedIds.splice(
+                savedIndex,
+                1
+            );
+
+            showToast(
+                `${resource.code} removed from saved resources.`,
+                "success"
+            );
+        }
+
+        saveActivity();
+
+        renderStatistics();
+        renderShowcase();
+        renderDepartmentSections();
+        renderBrowseResources();
+
+        if (
+            state.selectedResourceId ===
+            resource.id
+        ) {
+            updateDialogSaveButton(resource);
+        }
+    }
+
+    function performSearch(
+        query,
+        countSearch = true
+    ) {
+        state.searchTerm = cleanText(
+            query,
+            80
+        );
+
+        elements.sidebarSearchInput.value =
+            state.searchTerm;
+
+        elements.browseSearchInput.value =
+            state.searchTerm;
+
+        if (
+            countSearch &&
+            state.searchTerm
+        ) {
+            state.activity.searchCount += 1;
+            state.activity.studyPoints += 2;
+
+            saveActivity();
+            renderStatistics();
+        }
+
+        showView("browse");
+        renderBrowseResources();
+    }
+
+    function handleResourceAction(event) {
+        const button = event.target.closest(
+            "[data-resource-action]"
+        );
+
+        if (!button) {
+            return;
+        }
+
+        const resourceId =
+            button.dataset.resourceId;
+
+        if (
+            button.dataset.resourceAction ===
+            "view"
+        ) {
+            openResource(resourceId);
+        }
+
+        if (
+            button.dataset.resourceAction ===
+            "save"
+        ) {
+            toggleSavedResource(resourceId);
+        }
+    }
+
+    function handleCarouselButton(event) {
+        const button = event.currentTarget;
+
+        const track = document.getElementById(
+            button.dataset.scrollTarget
+        );
+
+        if (!track) {
+            return;
+        }
+
+        const direction =
+            Number(
+                button.dataset.scrollDirection
+            ) || 1;
+
+        const firstCard =
+            track.querySelector(
+                ".resource-card"
+            );
+
+        const scrollAmount =
+            firstCard
+                ? firstCard.offsetWidth + 16
+                : 300;
+
+        track.scrollBy({
+            left:
+                scrollAmount *
+                direction,
+
+            behavior: "smooth"
+        });
+    }
+
+    function resetActivity() {
+        const confirmed = window.confirm(
+            "Reset all StudyPal searches, viewed resources, saved resources, points, and streak activity?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        state.activity =
+            createDefaultActivity();
+
+        saveActivity();
+
+        renderStatistics();
+        renderShowcase();
+        renderDepartmentSections();
+        renderBrowseResources();
+
+        showToast(
+            "Your StudyPal activity has been reset.",
+            "success"
+        );
+    }
+
+    function logout() {
+        showLoader(
+            true,
+            "Signing you out..."
+        );
+
+        localStorage.removeItem(
+            CONFIG.sessionKey
+        );
+
+        window.setTimeout(() => {
+            window.location.href =
+                "/login/afit studypal-login.html";
+        }, 700);
+    }
+
+    function registerEvents() {
+        elements.themeToggle.addEventListener(
+            "click",
+            toggleTheme
+        );
+
+        elements.mobileMenuButton.addEventListener(
+            "click",
+            () => {
+                if (
+                    elements.sidebar.classList.contains(
+                        "is-mobile-open"
+                    )
+                ) {
+                    closeMobileSidebar();
+                } else {
+                    openMobileSidebar();
+                }
+            }
+        );
+
+        elements.mobileBackdrop.addEventListener(
+            "click",
+            closeMobileSidebar
+        );
+
+        elements.sidebarCollapseButton.addEventListener(
+            "click",
+            toggleSidebarCollapse
+        );
+
+        elements.sidebarNavigationButtons.forEach(
+            (button) => {
+                button.addEventListener(
+                    "click",
+                    () => {
+                        showView(
+                            button.dataset
+                                .viewTarget
+                        );
+                    }
+                );
+            }
+        );
+
+        elements.headerProfileButton.addEventListener(
+            "click",
+            () => {
+                showView("profile");
+            }
+        );
+
+        elements.browseResourcesButton.addEventListener(
+            "click",
+            () => {
+                showView("browse");
+            }
+        );
+
+        elements.sidebarSearchForm.addEventListener(
+            "submit",
+            (event) => {
+                event.preventDefault();
+
+                performSearch(
+                    elements.sidebarSearchInput
+                        .value
+                );
+            }
+        );
+
+        elements.browseSearchForm.addEventListener(
+            "submit",
+            (event) => {
+                event.preventDefault();
+
+                performSearch(
+                    elements.browseSearchInput
+                        .value
+                );
+            }
+        );
+
+        elements.browseSearchInput.addEventListener(
+            "input",
+            () => {
+                state.searchTerm =
+                    cleanText(
+                        elements
+                            .browseSearchInput
+                            .value,
+                        80
+                    );
+
+                elements.sidebarSearchInput.value =
+                    state.searchTerm;
+
+                renderBrowseResources();
+            }
+        );
+
+        elements.departmentFilter.addEventListener(
+            "change",
+            () => {
+                state.departmentFilter =
+                    elements.departmentFilter
+                        .value;
+
+                renderBrowseResources();
+            }
+        );
+
+        elements.carouselButtons.forEach(
+            (button) => {
+                button.addEventListener(
+                    "click",
+                    handleCarouselButton
+                );
+            }
+        );
+
+        elements.departmentSections.addEventListener(
+            "click",
+            (event) => {
+                const carouselButton =
+                    event.target.closest(
+                        "[data-scroll-target]"
+                    );
+
+                if (carouselButton) {
+                    handleCarouselButton({
+                        currentTarget:
+                            carouselButton
+                    });
+
+                    return;
+                }
+
+                handleResourceAction(event);
+            }
+        );
+
+        elements.showcaseTrack.addEventListener(
+            "click",
+            handleResourceAction
+        );
+
+        elements.browseResourceList.addEventListener(
+            "click",
+            handleResourceAction
+        );
+
+        elements.closeDialogButton.addEventListener(
+            "click",
+            closeResourceDialog
+        );
+
+        elements.resourceDialog.addEventListener(
+            "click",
+            (event) => {
+                if (
+                    event.target ===
+                    elements.resourceDialog
+                ) {
+                    closeResourceDialog();
+                }
+            }
+        );
+
+        elements.dialogSaveButton.addEventListener(
+            "click",
+            () => {
+                if (
+                    state.selectedResourceId
+                ) {
+                    toggleSavedResource(
+                        state.selectedResourceId
+                    );
+                }
+            }
+        );
+
+        elements.resetActivityButton.addEventListener(
+            "click",
+            resetActivity
+        );
+
+        elements.logoutButton.addEventListener(
+            "click",
+            logout
+        );
+
+        window.addEventListener(
+            "resize",
+            () => {
+                if (window.innerWidth > 860) {
+                    closeMobileSidebar();
+                }
+            }
+        );
+    }
+
+    function initialise() {
+        showLoader(
+            true,
+            "Preparing your StudyPal dashboard..."
+        );
+
+        if (!initialiseCurrentUser()) {
+            return;
+        }
+
+        initialiseTheme();
+        initialiseSidebarState();
+        populateUserInterface();
+        renderStatistics();
+        renderShowcase();
+        renderDepartmentSections();
+        renderBrowseResources();
+        registerEvents();
+        showView("home");
+
+        window.setTimeout(() => {
+            showLoader(false);
+        }, 500);
+    }
+
+    initialise();
+})();

@@ -2,41 +2,389 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/afit studypal.css">
-    <title>Studypal Register</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Create an AFIT StudyPal account and access organised academic resources."
+    >
+
+    <meta
+        name="theme-color"
+        content="#131218"
+    >
+
+    <title>AFIT StudyPal | Register</title>
+
+    <link
+        rel="stylesheet"
+        href="/afit studypal.css"
+    >
+
+    <script
+        src="/register/afit studypal-register.js"
+        defer
+    ></script>
 </head>
-<body class="register-body">
-    <form>
-        <label for="firstName">Firstname</label>
-        <input type="text" id="firstName" placeholder="Precious" min="3" required>
 
-        <label for="lastName">Lastname</label>
-        <input type="text" id="lastName" placeholder="Awang" min="3" required>
+<body class="auth-page">
+    <div
+        class="background-grid"
+        aria-hidden="true"
+    ></div>
 
-        <label for="matricNumber">Matric Number</label>
-        <input type="text" id="matricNumber" placeholder="  NUC00148" min="3" required>
+    <div
+        class="background-orb background-orb--one"
+        aria-hidden="true"
+    ></div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="*********" min="8" required>
+    <div
+        class="background-orb background-orb--two"
+        aria-hidden="true"
+    ></div>
 
-        <button id="register" type="button">Register</button>
-
-        <p>Already have an account? <a href="/login/afit studypal-login.html">Login</a></p>
-        <p>Go home? <a href="/index.html">Home</a></p>
-
-        <p id="signup_message"></p>
-        <p id="alert"></p>
-
-        <p id="tagline"> &copy;2025. Study smarter with StudyPal</p>
-    </form>
-    <div id="logout_animation">
-        <div id="animation_coat">
-            <div id="dotted_line"></div>
-            <div id="dotted_line"></div>
-            <div id="dotted_line"></div>
+    <div
+        id="page-loader"
+        class="page-loader"
+        aria-hidden="true"
+    >
+        <div class="page-loader__logo">
+            SP
         </div>
+
+        <div class="page-loader__spinner"></div>
+
+        <p id="loader-text">
+            Creating your account...
+        </p>
     </div>
-    <script src="afit studypal-register.js"></script>
+
+    <div
+        id="app-toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+
+    <header class="auth-header container">
+        <a
+            href="/index.html"
+            class="brand"
+        >
+            <span
+                class="brand__mark"
+                aria-hidden="true"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M4.5 5.2c0-.5.4-.9.9-.9 3.4.1 5.4 1.1 6.6 2.5 1.2-1.4 3.2-2.4 6.6-2.5.5 0 .9.4.9.9v11.3c0 .5-.4.9-.9.9-3.4.1-5.4 1.1-6.6 2.5-1.2-1.4-3.2-2.4-6.6-2.5-.5 0-.9-.4-.9-.9V5.2Z"
+                    ></path>
+
+                    <path d="M12 6.8v13.1"></path>
+                </svg>
+            </span>
+
+            <span class="brand__text">
+                <strong>AFIT StudyPal</strong>
+                <small>Academic resource platform</small>
+            </span>
+        </a>
+
+        <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to light mode"
+            aria-pressed="true"
+        >
+            <span
+                class="theme-toggle__icon"
+                aria-hidden="true"
+            >
+                ☀
+            </span>
+
+            <span class="theme-toggle__text">
+                Light mode
+            </span>
+        </button>
+    </header>
+
+    <main class="auth-shell container">
+        <section class="auth-information">
+            <p class="eyebrow">Join StudyPal</p>
+
+            <h1>
+                Build your personal academic resource dashboard.
+            </h1>
+
+            <p>
+                Create an account to browse courses, save useful materials,
+                preview resources, and track your daily StudyPal activity.
+            </p>
+
+            <div class="auth-information__features">
+                <article>
+                    <span>▤</span>
+
+                    <div>
+                        <strong>Department resources</strong>
+                        <p>Browse content organised around AFIT programmes.</p>
+                    </div>
+                </article>
+
+                <article>
+                    <span>☆</span>
+
+                    <div>
+                        <strong>Personal saved list</strong>
+                        <p>Keep useful resources connected to your account.</p>
+                    </div>
+                </article>
+
+                <article>
+                    <span>↑</span>
+
+                    <div>
+                        <strong>Study activity</strong>
+                        <p>Build streaks and collect StudyPal points.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="auth-card auth-card--wide">
+            <div class="auth-card__heading">
+                <p class="eyebrow">New student account</p>
+
+                <h2>Create your StudyPal account</h2>
+
+                <p>
+                    Complete all required fields below.
+                </p>
+            </div>
+
+            <form
+                id="register-form"
+                class="auth-form"
+                novalidate
+            >
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-first-name">
+                            First name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="register-first-name"
+                            name="firstName"
+                            placeholder="For example: Precious"
+                            autocomplete="given-name"
+                            minlength="2"
+                            maxlength="40"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-last-name">
+                            Last name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="register-last-name"
+                            name="lastName"
+                            placeholder="For example: Awang"
+                            autocomplete="family-name"
+                            minlength="2"
+                            maxlength="40"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-matric-number">
+                            Matric number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="register-matric-number"
+                            name="matricNumber"
+                            placeholder="For example: NUC00148"
+                            autocomplete="username"
+                            minlength="3"
+                            maxlength="30"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-department">
+                            Department
+                        </label>
+
+                        <select
+                            id="register-department"
+                            name="department"
+                            required
+                        >
+                            <option value="">
+                                Select your department
+                            </option>
+
+                            <option value="Aircraft Engineering">
+                                Aircraft Engineering
+                            </option>
+
+                            <option value="Business Administration">
+                                Business Administration
+                            </option>
+
+                            <option value="Civil Engineering">
+                                Civil Engineering
+                            </option>
+
+                            <option value="Electrical Engineering">
+                                Electrical Engineering
+                            </option>
+
+                            <option value="Mechanical Engineering">
+                                Mechanical Engineering
+                            </option>
+
+                            <option value="General">
+                                General Studies
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="register-email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="register-email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        autocomplete="email"
+                        maxlength="100"
+                        required
+                    >
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-password">
+                            Password
+                        </label>
+
+                        <div class="password-field">
+                            <input
+                                type="password"
+                                id="register-password"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                maxlength="120"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-password-toggle="register-password"
+                            >
+                                Show
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-confirm-password">
+                            Confirm password
+                        </label>
+
+                        <div class="password-field">
+                            <input
+                                type="password"
+                                id="register-confirm-password"
+                                name="confirmPassword"
+                                placeholder="Repeat your password"
+                                autocomplete="new-password"
+                                maxlength="120"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-password-toggle="register-confirm-password"
+                            >
+                                Show
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="form-help">
+                    Password must contain at least 8 characters, including
+                    letters and numbers.
+                </p>
+
+                <p
+                    id="form-message"
+                    class="form-message"
+                    role="alert"
+                    aria-live="polite"
+                ></p>
+
+                <button
+                    id="register-submit-button"
+                    class="button button--primary button--full"
+                    type="submit"
+                >
+                    <span>Create account</span>
+                </button>
+            </form>
+
+            <div class="auth-card__links">
+                <p>
+                    Already have an account?
+                    <a href="/login/afit studypal-login.html">
+                        Log in
+                    </a>
+                </p>
+
+                <a
+                    href="/index.html"
+                    class="auth-return-link"
+                >
+                    ← Return to the landing page
+                </a>
+            </div>
+
+            <div class="auth-security-note">
+                <span aria-hidden="true">i</span>
+
+                <p>
+                    StudyPal currently uses browser storage for demonstration.
+                    Do not use a password that you use for important accounts.
+                </p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

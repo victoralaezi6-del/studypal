@@ -2,42 +2,263 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/afit studypal.css">
-    <title>StudyPal Login</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Log in to AFIT StudyPal and access your academic resource dashboard."
+    >
+
+    <meta
+        name="theme-color"
+        content="#131218"
+    >
+
+    <title>AFIT StudyPal | Log In</title>
+
+    <link
+        rel="stylesheet"
+        href="/afit studypal.css"
+    >
+
+    <script
+        src="/login/afit studypal-login.js"
+        defer
+    ></script>
 </head>
-<body class="login-body">
-    <form>
-        <label for="firstName">Firstname</label>
-        <input type="text" id="firstName" placeholder="  Precious" min="3" required>
 
-        <label for="matricNumber">Matric Number</label>
-        <input type="text" id="matricNumber" placeholder="  NUC00148" min="3" required>
+<body class="auth-page">
+    <div
+        class="background-grid"
+        aria-hidden="true"
+    ></div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="  *********" min="8" required>
+    <div
+        class="background-orb background-orb--one"
+        aria-hidden="true"
+    ></div>
 
-        <button id="login-button" type="button">Login</button>
+    <div
+        class="background-orb background-orb--two"
+        aria-hidden="true"
+    ></div>
 
-        
-        <p id="Register">Don't have an account? <a href="/register/afit studypal-register.html">Register</a></p>
-        <p id="goHome">Go home? <a href="/index.html">Home</a></p>
-
-        <p id="login_message"></p>
-        <p id="alert"></p>
-        <p id="alert_message"></p>
-        <p id="noAccount"></p>
-
-        <p id="tagline">&copy;2025. Study smarter with StudyPal</p>
-    </form>
-
-    <div id="logout_animation">
-        <div id="animation_coat">
-            <div id="dotted_line"></div>
-            <div id="dotted_line"></div>
-            <div id="dotted_line"></div>
+    <div
+        id="page-loader"
+        class="page-loader"
+        aria-hidden="true"
+    >
+        <div class="page-loader__logo">
+            SP
         </div>
+
+        <div class="page-loader__spinner"></div>
+
+        <p id="loader-text">
+            Signing you in...
+        </p>
     </div>
-    <script src="afit studypal-login.js"></script>
+
+    <div
+        id="app-toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+
+    <header class="auth-header container">
+        <a
+            href="/index.html"
+            class="brand"
+        >
+            <span
+                class="brand__mark"
+                aria-hidden="true"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M4.5 5.2c0-.5.4-.9.9-.9 3.4.1 5.4 1.1 6.6 2.5 1.2-1.4 3.2-2.4 6.6-2.5.5 0 .9.4.9.9v11.3c0 .5-.4.9-.9.9-3.4.1-5.4 1.1-6.6 2.5-1.2-1.4-3.2-2.4-6.6-2.5-.5 0-.9-.4-.9-.9V5.2Z"
+                    ></path>
+
+                    <path d="M12 6.8v13.1"></path>
+                </svg>
+            </span>
+
+            <span class="brand__text">
+                <strong>AFIT StudyPal</strong>
+                <small>Academic resource platform</small>
+            </span>
+        </a>
+
+        <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to light mode"
+            aria-pressed="true"
+        >
+            <span
+                class="theme-toggle__icon"
+                aria-hidden="true"
+            >
+                ☀
+            </span>
+
+            <span class="theme-toggle__text">
+                Light mode
+            </span>
+        </button>
+    </header>
+
+    <main class="auth-shell container">
+        <section class="auth-information">
+            <p class="eyebrow">Welcome back</p>
+
+            <h1>
+                Continue your study journey from one organised dashboard.
+            </h1>
+
+            <p>
+                Log in to search academic resources, browse department
+                collections, save useful materials, and monitor your activity.
+            </p>
+
+            <div class="auth-information__features">
+                <article>
+                    <span>⌕</span>
+
+                    <div>
+                        <strong>Search quickly</strong>
+                        <p>Find resources by course code or keyword.</p>
+                    </div>
+                </article>
+
+                <article>
+                    <span>☆</span>
+
+                    <div>
+                        <strong>Save resources</strong>
+                        <p>Keep important study materials easy to find.</p>
+                    </div>
+                </article>
+
+                <article>
+                    <span>◉</span>
+
+                    <div>
+                        <strong>Track activity</strong>
+                        <p>Monitor views, searches, points, and streaks.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="auth-card">
+            <div class="auth-card__heading">
+                <p class="eyebrow">Account access</p>
+
+                <h2>Log in to StudyPal</h2>
+
+                <p>
+                    Enter your matric number and password.
+                </p>
+            </div>
+
+            <form
+                id="login-form"
+                class="auth-form"
+                novalidate
+            >
+                <div class="form-group">
+                    <label for="login-matric-number">
+                        Matric number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="login-matric-number"
+                        name="matricNumber"
+                        placeholder="For example: NUC00148"
+                        autocomplete="username"
+                        minlength="3"
+                        maxlength="30"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">
+                        Password
+                    </label>
+
+                    <div class="password-field">
+                        <input
+                            type="password"
+                            id="login-password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            maxlength="120"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-password-toggle="login-password"
+                        >
+                            Show
+                        </button>
+                    </div>
+                </div>
+
+                <p
+                    id="form-message"
+                    class="form-message"
+                    role="alert"
+                    aria-live="polite"
+                ></p>
+
+                <button
+                    id="login-submit-button"
+                    class="button button--primary button--full"
+                    type="submit"
+                >
+                    <span>Log in</span>
+                </button>
+            </form>
+
+            <div class="auth-card__links">
+                <p>
+                    Do not have an account?
+                    <a href="/register/afit studypal-register.html">
+                        Register
+                    </a>
+                </p>
+
+                <a
+                    href="/index.html"
+                    class="auth-return-link"
+                >
+                    ← Return to the landing page
+                </a>
+            </div>
+
+            <div class="auth-security-note">
+                <span aria-hidden="true">i</span>
+
+                <p>
+                    This portfolio demonstration stores account information
+                    locally in your browser. It is not a production
+                    authentication system.
+                </p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

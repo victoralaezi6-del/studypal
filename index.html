@@ -1,89 +1,651 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="afit studypal.css">
-    <title>StudyPal Page</title>
+    <meta name="description" content="AFIT StudyPal provides organised academic resources, course materials, past questions, and study support for AFIT students.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#131218">
+    <title>AFIT StudyPal | Study Smarter</title>
+    <link rel="stylesheet" href="/afit studypal.css">
+    <script src="/afit studypal.js" defer></script>
 </head>
-<body class="whole">
+<body class="landing-page">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="background-grid" aria-hidden="true"></div>
+    <div class="background-orb background-orb--one" aria-hidden="true"></div>
+    <div class="background-orb background-orb--two" aria-hidden="true"></div>
+    <header class="landing-header">
+        <div class="container landing-header__inner">
+            <a href="/index.html" class="brand" aria-label="AFIT StudyPal home">
+                <span class="brand__mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M4.5 5.2c0-.5.4-.9.9-.9 3.4.1 5.4 1.1 6.6 2.5 1.2-1.4 3.2-2.4 6.6-2.5.5 0 .9.4.9.9v11.3c0 .5-.4.9-.9.9-3.4.1-5.4 1.1-6.6 2.5-1.2-1.4-3.2-2.4-6.6-2.5-.5 0-.9-.4-.9-.9V5.2Z"
+                        ></path>
 
-    <!-- HEADER SECTION -->
-    <header class="header">
-        <div id="left_header">
-            <svg viewBox='0 0 24 24' width='3.5rem' height='3.5rem'><path fill="#fff" d="M12 6.90909C10.89995.50893 9.20406 4.10877 5.001194.00602C4.72513 3.99928 4.5 14.30344.5 16.597C4.5 16.8731 4.72515 17.09 5.00114 17.099C9.20405 17.2364 10.8999 19.0998 12 20.5M12 6.90909C13.1001 5.50893 14.7959 4.10877 18.9988 4.00602C19.2749 3.99928 19.5 4.21847 19.5
-                                                                    4.49461C19.5 6.78447 19.5 14.3064 19.5 16.5963C19.5 16.8724 19.2749 17.09 18.9989 17.099C14.796 17.2364 13.1001 19.0998 12 20.5M12 6.90909L12 20.5" stroke="#000000" stroke-linejoin="round"/></svg>
-            <p id="branding">StudyPal</p>
+                        <path d="M12 6.8v13.1"></path>
+                    </svg>
+                </span>
+
+                <span class="brand__text">
+                    <strong>AFIT StudyPal</strong>
+                    <small>Study smarter, not harder</small>
+                </span>
+            </a>
+
+            <button
+                id="landing-menu-button"
+                class="menu-button"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-controls="landing-navigation"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav
+                id="landing-navigation"
+                class="landing-navigation"
+                aria-label="Main navigation"
+            >
+                <div class="landing-navigation__links">
+                    <a href="#features">Features</a>
+                    <a href="#departments">Departments</a>
+                    <a href="#how-it-works">How it works</a>
+                    <a href="#about">About</a>
+                </div>
+
+                <div class="landing-navigation__actions">
+                    <button
+                        id="theme-toggle"
+                        class="theme-toggle"
+                        type="button"
+                        aria-label="Switch to light mode"
+                        aria-pressed="true"
+                    >
+                        <span
+                            class="theme-toggle__icon"
+                            aria-hidden="true"
+                        >
+                            ☀
+                        </span>
+
+                        <span class="theme-toggle__text">
+                            Light mode
+                        </span>
+                    </button>
+
+                    <a
+                        id="landing-login-link"
+                        href="/login/afit studypal-login.html"
+                        class="button button--secondary"
+                    >
+                        Log in
+                    </a>
+
+                    <a
+                        id="landing-register-link"
+                        href="/register/afit studypal-register.html"
+                        class="button button--primary"
+                    >
+                        Get started
+                    </a>
+                </div>
+            </nav>
         </div>
-        
-        <!-- NAVIGATION MENU -->
-        <nav>
-            <a href="/login/afit studypal-login.html">Login</a>
-            <a href="/register/afit studypal-register.html">Register</a>
-        </nav>
     </header>
 
-    <section class="others">
-        <!-- HERO SECTION (To be above the fold) -->
-        <main class="hero_section">
-            <div id="left_card">
-                <p>
-                    Boost your academic performance with <span id="span_Pal">StudyPal.</span> <br>
-                    <span id="span_Pal2">Get curated resources, past questions and answers.</span>
-                </p>
-            </div>
-            <div id="right_card">
-                <img src="images/dashboard1.jpeg" alt="Student dashboard image">
-                <!-- ADD AN IMAGE OF DASHBOARD LOOK / ANIMATION OF HOW SOMETHINGS WORKS -->
-            </div>
-        </main>
-
-        <div id="get_started"><a href="/login/afit studypal-login.html">Get started</a></div>
-
-        <!-- MISCELLANEOUS COLLECTIONS -->
-        <section class="miscellaneous">
-            <div class="features">
-                <span id="features-heading">Features</span>
-                <p id="featuresP">StudyPal provides you with the tools you need to boost your academic performance.</p> <br>
-                
-                <div class="features-div">
-                    <div id="features1-P"><span id="features1-Phead">Access past questions and answers</span>
-                        <p id="features1Subtext">Get past questions and answers for your exams and assignments.</p>
+    <main id="main-content">
+        <section class="hero-section">
+            <div class="container hero-section__grid">
+                <div class="hero-content reveal-element">
+                    <div class="hero-badge">
+                        <span aria-hidden="true">✦</span>
+                        Built for AFIT students
                     </div>
-                    <div id="features1-icon"><img src="images/features1.jpeg" alt="Student accessing past question"></div>
 
-                    <div id="features2-P"><span id="features2-Phead">Study materials and resources</span>
-                        <p id="features2Subtext">Access curated study materials and resources to help you understand
-                            your course materials better.
+                    <h1>
+                        Your organised academic companion for
+                        <span>smarter studying.</span>
+                    </h1>
+
+                    <p class="hero-content__description">
+                        Discover course materials, past questions, academic
+                        resources, and department-specific content from one
+                        responsive StudyPal dashboard.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a
+                            id="hero-primary-action"
+                            href="/register/afit studypal-register.html"
+                            class="button button--primary button--large"
+                        >
+                            Create an account
+                            <span aria-hidden="true">→</span>
+                        </a>
+
+                        <a
+                            href="#features"
+                            class="button button--secondary button--large"
+                        >
+                            Explore features
+                        </a>
+                    </div>
+
+                    <div class="hero-points">
+                        <span>
+                            <strong>40+</strong>
+                            course resources
+                        </span>
+
+                        <span>
+                            <strong>5</strong>
+                            major departments
+                        </span>
+
+                        <span>
+                            <strong>2</strong>
+                            interface themes
+                        </span>
+                    </div>
+
+                    <div class="demo-notice">
+                        <span aria-hidden="true">i</span>
+
+                        <p>
+                            StudyPal is currently a frontend portfolio
+                            demonstration. Resource previews use sample images
+                            until real academic documents are connected.
                         </p>
                     </div>
-                    <div id="features2-icon"><img src="images/features2.jpeg" alt="Student studying with accessed past questions"></div>
-
-                    <div id="features3-P"><span id="features3-Phead">Connect with peers</span>
-                        <p id="features3Subtext">Join a community of AFIT kaduna students to ask questions, share resources and get support.</p>
-                    </div>
-                    <div id="features3-icon"><img src="images/features3.jpeg" alt="Students studying together"></div>
                 </div>
-            </div>
 
-            <div id="how-it-works">
-                <span id="how-it-works-heading">How it works</span>
-                <div class="how_it_works_cards">
-                    <div id="card-1"><span id="card-1-span">1</span>Sign-up / Login</div>
-                    <div id="card-2"><span id="card-2-span">2</span>Browse for curated resources</div>
-                    <div id="card-3"><span id="card-3-span">3</span>Access resources</div>
-                    <div id="card-4"><span id="card-4-span">4</span>Study smarter with StudyPal</div>
-                    <div id="card-5"><span id="card-5-span">5</span>Connect with AFIT peers for support</div>
+                <div class="hero-visual reveal-element">
+                    <div class="dashboard-mockup">
+                        <div class="dashboard-mockup__header">
+                            <div>
+                                <small>Student dashboard</small>
+                                <strong>Welcome, Victor</strong>
+                            </div>
+
+                            <span class="dashboard-mockup__avatar">
+                                V
+                            </span>
+                        </div>
+
+                        <div class="dashboard-mockup__search">
+                            <span aria-hidden="true">⌕</span>
+                            Search by course code or keyword
+                        </div>
+
+                        <div class="dashboard-mockup__statistics">
+                            <article>
+                                <span>Resources</span>
+                                <strong>42</strong>
+                            </article>
+
+                            <article>
+                                <span>Viewed</span>
+                                <strong>12</strong>
+                            </article>
+
+                            <article>
+                                <span>Saved</span>
+                                <strong>6</strong>
+                            </article>
+                        </div>
+
+                        <div class="dashboard-mockup__heading">
+                            <strong>Recommended resources</strong>
+                            <span>View all</span>
+                        </div>
+
+                        <div class="dashboard-mockup__resources">
+                            <article>
+                                <span>AEC</span>
+
+                                <div>
+                                    <strong>AEC 201</strong>
+                                    <small>Aircraft Powerplant I</small>
+                                </div>
+
+                                <button type="button" tabindex="-1">
+                                    View
+                                </button>
+                            </article>
+
+                            <article>
+                                <span>MTH</span>
+
+                                <div>
+                                    <strong>MTH 201</strong>
+                                    <small>Logic and Linear Algebra</small>
+                                </div>
+
+                                <button type="button" tabindex="-1">
+                                    View
+                                </button>
+                            </article>
+
+                            <article>
+                                <span>MEC</span>
+
+                                <div>
+                                    <strong>MEC 229</strong>
+                                    <small>Fluid Mechanics</small>
+                                </div>
+
+                                <button type="button" tabindex="-1">
+                                    View
+                                </button>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="floating-card floating-card--search">
+                        <span>Search completed</span>
+                        <strong>8 resources found</strong>
+                    </div>
+
+                    <div class="floating-card floating-card--streak">
+                        <span>Study streak</span>
+                        <strong>5 days</strong>
+                    </div>
                 </div>
             </div>
         </section>
-    </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <p id="footer-tagline">Study smarter with StudyPal</p>
-        <div>&copy;2026. Created by <span id="span_Pal">Victor Chinenye.</span></div>
+        <section
+            id="features"
+            class="landing-section"
+        >
+            <div class="container">
+                <div class="section-heading reveal-element">
+                    <p class="eyebrow">Platform features</p>
+
+                    <h2>
+                        The essential tools for finding and organising academic resources
+                    </h2>
+
+                    <p>
+                        StudyPal brings searchable resources, department
+                        categories, saved materials, and student progress into
+                        one clean interface.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <article class="feature-card reveal-element">
+                        <span class="feature-card__number">01</span>
+                        <span class="feature-card__icon">⌕</span>
+
+                        <h3>Fast resource search</h3>
+
+                        <p>
+                            Search by course code, title, keyword, or department
+                            from the dashboard or complete resource library.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal-element">
+                        <span class="feature-card__number">02</span>
+                        <span class="feature-card__icon">▤</span>
+
+                        <h3>Department categories</h3>
+
+                        <p>
+                            Browse resources for Aircraft, Business, Civil,
+                            Electrical, and Mechanical Engineering.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal-element">
+                        <span class="feature-card__number">03</span>
+                        <span class="feature-card__icon">☆</span>
+
+                        <h3>Saved resources</h3>
+
+                        <p>
+                            Save important course materials so they remain easy
+                            to locate during future study sessions.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal-element">
+                        <span class="feature-card__number">04</span>
+                        <span class="feature-card__icon">◉</span>
+
+                        <h3>Activity dashboard</h3>
+
+                        <p>
+                            Monitor searches, viewed resources, saved items,
+                            study points, and daily study streaks.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal-element">
+                        <span class="feature-card__number">05</span>
+                        <span class="feature-card__icon">◐</span>
+
+                        <h3>Light and dark mode</h3>
+
+                        <p>
+                            Switch between themes across the landing page,
+                            account pages, and student dashboard.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal-element">
+                        <span class="feature-card__number">06</span>
+                        <span class="feature-card__icon">▣</span>
+
+                        <h3>Responsive dashboard</h3>
+
+                        <p>
+                            Use StudyPal comfortably on desktop computers,
+                            tablets, and mobile devices.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section
+            id="departments"
+            class="landing-section landing-section--soft"
+        >
+            <div class="container">
+                <div class="section-heading reveal-element">
+                    <p class="eyebrow">Available departments</p>
+
+                    <h2>
+                        Resources organised around AFIT academic programmes
+                    </h2>
+                </div>
+
+                <div class="department-grid">
+                    <article class="department-card reveal-element">
+                        <span>AETD</span>
+                        <h3>Aircraft Engineering</h3>
+                        <p>
+                            Aircraft systems, structures, powerplants,
+                            electronics, communication principles, and materials.
+                        </p>
+                    </article>
+
+                    <article class="department-card reveal-element">
+                        <span>BAM</span>
+                        <h3>Business Administration</h3>
+                        <p>
+                            Business law, accounting, statistics, management,
+                            research, office management, and information technology.
+                        </p>
+                    </article>
+
+                    <article class="department-card reveal-element">
+                        <span>CEED</span>
+                        <h3>Civil Engineering</h3>
+                        <p>
+                            Hydraulics, hydrology, construction, surveying,
+                            structures, hydrogeology, and workshop technology.
+                        </p>
+                    </article>
+
+                    <article class="department-card reveal-element">
+                        <span>EED</span>
+                        <h3>Electrical Engineering</h3>
+                        <p>
+                            Electrical machines, electronics, power systems,
+                            circuit theory, instruments, and telecommunications.
+                        </p>
+                    </article>
+
+                    <article class="department-card reveal-element">
+                        <span>MAGED</span>
+                        <h3>Mechanical Engineering</h3>
+                        <p>
+                            Thermodynamics, measurement, fluid mechanics,
+                            technical reporting, drawing, forging, and CAD.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section
+            id="how-it-works"
+            class="landing-section"
+        >
+            <div class="container">
+                <div class="section-heading reveal-element">
+                    <p class="eyebrow">How it works</p>
+
+                    <h2>
+                        Start using StudyPal in four simple steps
+                    </h2>
+                </div>
+
+                <div class="steps-grid">
+                    <article class="step-card reveal-element">
+                        <span>1</span>
+
+                        <div>
+                            <h3>Create an account</h3>
+
+                            <p>
+                                Register with your name, matric number,
+                                department, email, and password.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="step-card reveal-element">
+                        <span>2</span>
+
+                        <div>
+                            <h3>Open your dashboard</h3>
+
+                            <p>
+                                Access your personalised dashboard and browse
+                                recommended academic resources.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="step-card reveal-element">
+                        <span>3</span>
+
+                        <div>
+                            <h3>Search and preview</h3>
+
+                            <p>
+                                Find resources by course code, course name,
+                                keyword, or academic department.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="step-card reveal-element">
+                        <span>4</span>
+
+                        <div>
+                            <h3>Save and track progress</h3>
+
+                            <p>
+                                Save useful resources and monitor your study
+                                activity, points, and daily streak.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section
+            id="about"
+            class="landing-section"
+        >
+            <div class="container">
+                <div class="about-panel reveal-element">
+                    <div class="about-panel__content">
+                        <p class="eyebrow">About the project</p>
+
+                        <h2>
+                            A modern academic resource experience built with frontend technologies
+                        </h2>
+
+                        <p>
+                            StudyPal demonstrates responsive layouts, account
+                            flows, browser storage, secure DOM rendering,
+                            search, filtering, resource previews, saved items,
+                            themes, animations, and student activity tracking.
+                        </p>
+                    </div>
+
+                    <div class="about-panel__statistics">
+                        <article>
+                            <strong>42</strong>
+                            <span>Sample resources</span>
+                        </article>
+
+                        <article>
+                            <strong>5</strong>
+                            <span>Departments</span>
+                        </article>
+
+                        <article>
+                            <strong>3</strong>
+                            <span>Dashboard sections</span>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="landing-cta">
+            <div class="container">
+                <div class="landing-cta__panel reveal-element">
+                    <div>
+                        <p class="eyebrow">Start studying smarter</p>
+
+                        <h2>
+                            Create your StudyPal account and explore the complete dashboard
+                        </h2>
+
+                        <p>
+                            Find organised resources, save important materials,
+                            and monitor your study activity.
+                        </p>
+                    </div>
+
+                    <div class="landing-cta__actions">
+                        <a
+                            id="cta-register-link"
+                            href="/register/afit studypal-register.html"
+                            class="button button--light"
+                        >
+                            Create account
+                        </a>
+
+                        <a
+                            id="cta-login-link"
+                            href="/login/afit studypal-login.html"
+                            class="button button--outline-light"
+                        >
+                            Log in
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <div class="container landing-footer__top">
+            <div>
+                <a
+                    href="/index.html"
+                    class="brand"
+                >
+                    <span
+                        class="brand__mark"
+                        aria-hidden="true"
+                    >
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M4.5 5.2c0-.5.4-.9.9-.9 3.4.1 5.4 1.1 6.6 2.5 1.2-1.4 3.2-2.4 6.6-2.5.5 0 .9.4.9.9v11.3c0 .5-.4.9-.9.9-3.4.1-5.4 1.1-6.6 2.5-1.2-1.4-3.2-2.4-6.6-2.5-.5 0-.9-.4-.9-.9V5.2Z"
+                            ></path>
+
+                            <path d="M12 6.8v13.1"></path>
+                        </svg>
+                    </span>
+
+                    <span class="brand__text">
+                        <strong>AFIT StudyPal</strong>
+                        <small>Study smarter, not harder</small>
+                    </span>
+                </a>
+
+                <p class="landing-footer__description">
+                    A frontend academic resource platform created for AFIT
+                    students and demonstrated with sample course resources.
+                </p>
+            </div>
+
+            <div class="landing-footer__links">
+                <div>
+                    <strong>Platform</strong>
+                    <a href="#features">Features</a>
+                    <a href="#departments">Departments</a>
+                    <a href="#how-it-works">How it works</a>
+                </div>
+
+                <div>
+                    <strong>Account</strong>
+                    <a href="/login/afit studypal-login.html">Log in</a>
+                    <a href="/register/afit studypal-register.html">Register</a>
+                    <a href="/home/afit studypal-home.html">Dashboard</a>
+                </div>
+
+                <div>
+                    <strong>Creator</strong>
+                    <a href="mailto:victoralaezi6@gmail.com">Email</a>
+
+                    <a
+                        href="https://www.facebook.com/profile.php?id=61550055038846"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Facebook
+                    </a>
+
+                    <a
+                        href="https://www.instagram.com/boi_nenye?igsh=ZGUzMzM3NWJiOQ=="
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container landing-footer__bottom">
+            <p>
+                &copy;
+                <span id="current-year">2026</span>
+                AFIT StudyPal. Built by Victor Chinenye Alaezi.
+            </p>
+
+            <p>
+                Demonstration resources only.
+            </p>
+        </div>
     </footer>
-
 </body>
 </html>

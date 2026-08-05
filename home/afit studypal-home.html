@@ -2,211 +2,668 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyPal</title>
-    <link rel="stylesheet" href="/afit studypal.css">
-</head>
-<body>
 
-    <!-- FOR DESKTOP -->
-    <!-- LEFT CONTAINER -->
-    <div class="left_container">
-        <header>
-            <div class="header_text">
-                <svg viewBox='0 0 24 24' width='3.5rem' height='3.5rem'><path fill="#F5F8FA" d="M12 6.90909C10.89995.50893 9.20406 4.10877 5.001194.00602C4.72513 3.99928 4.5 14.30344.5 16.597C4.5 16.8731 4.72515 17.09 5.00114 17.099C9.20405 17.2364 10.8999 19.0998 12 20.5M12 6.90909C13.1001 5.50893 14.7959 4.10877 18.9988 4.00602C19.2749 3.99928 19.5 4.21847 19.5
-                                                                    4.49461C19.5 6.78447 19.5 14.3064 19.5 16.5963C19.5 16.8724 19.2749 17.09 18.9989 17.099C14.796 17.2364 13.1001 19.0998 12 20.5M12 6.90909L12 20.5" stroke="#000000" stroke-linejoin="round"/></svg>
-                <h1 class="header_item">StudyPal</h1>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="AFIT StudyPal student dashboard for finding, previewing, and saving academic resources."
+    >
+
+    <meta
+        name="theme-color"
+        content="#131218"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
+    <title>AFIT StudyPal | Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="/afit studypal.css"
+    >
+
+    <script
+        src="/home/afit studypal-home.js"
+        defer
+    ></script>
+</head>
+
+<body class="app-page">
+    <div
+        id="page-loader"
+        class="page-loader is-visible"
+        aria-hidden="true"
+    >
+        <div class="page-loader__logo">
+            SP
+        </div>
+
+        <div class="page-loader__spinner"></div>
+
+        <p id="loader-text">
+            Preparing your StudyPal dashboard...
+        </p>
+    </div>
+
+    <div
+        id="app-toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+
+    <div
+        id="mobile-backdrop"
+        class="mobile-backdrop"
+        aria-hidden="true"
+    ></div>
+
+    <aside
+        id="app-sidebar"
+        class="app-sidebar"
+        aria-label="Dashboard navigation"
+    >
+        <div class="app-sidebar__top">
+            <a
+                href="/index.html"
+                class="sidebar-brand"
+            >
+                <span
+                    class="sidebar-brand__mark"
+                    aria-hidden="true"
+                >
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M4.5 5.2c0-.5.4-.9.9-.9 3.4.1 5.4 1.1 6.6 2.5 1.2-1.4 3.2-2.4 6.6-2.5.5 0 .9.4.9.9v11.3c0 .5-.4.9-.9.9-3.4.1-5.4 1.1-6.6 2.5-1.2-1.4-3.2-2.4-6.6-2.5-.5 0-.9-.4-.9-.9V5.2Z"
+                        ></path>
+
+                        <path d="M12 6.8v13.1"></path>
+                    </svg>
+                </span>
+
+                <span class="sidebar-brand__text">
+                    <strong>StudyPal</strong>
+                    <small>AFIT resources</small>
+                </span>
+            </a>
+
+            <button
+                id="sidebar-collapse-button"
+                class="sidebar-collapse-button"
+                type="button"
+                aria-label="Collapse sidebar"
+            >
+                <span aria-hidden="true">⇆</span>
+            </button>
+        </div>
+
+        <form
+            id="sidebar-search-form"
+            class="sidebar-search"
+            role="search"
+        >
+            <label
+                for="sidebar-search-input"
+                class="visually-hidden"
+            >
+                Search resources
+            </label>
+
+            <span aria-hidden="true">⌕</span>
+
+            <input
+                type="search"
+                id="sidebar-search-input"
+                placeholder="Search resources"
+                maxlength="80"
+                autocomplete="off"
+            >
+        </form>
+
+        <nav class="sidebar-navigation">
+            <button
+                class="sidebar-navigation__button is-active"
+                type="button"
+                data-view-target="home"
+            >
+                <span aria-hidden="true">⌂</span>
+                <strong>Home</strong>
+            </button>
+
+            <button
+                class="sidebar-navigation__button"
+                type="button"
+                data-view-target="browse"
+            >
+                <span aria-hidden="true">▤</span>
+                <strong>Browse</strong>
+            </button>
+
+            <button
+                class="sidebar-navigation__button"
+                type="button"
+                data-view-target="profile"
+            >
+                <span aria-hidden="true">●</span>
+                <strong>Profile</strong>
+            </button>
+        </nav>
+
+        <div class="app-sidebar__bottom">
+            <button
+                id="logout-button"
+                class="sidebar-navigation__button sidebar-navigation__button--danger"
+                type="button"
+            >
+                <span aria-hidden="true">↪</span>
+                <strong>Log out</strong>
+            </button>
+        </div>
+    </aside>
+
+    <div class="app-workspace">
+        <header class="app-header">
+            <button
+                id="mobile-menu-button"
+                class="mobile-menu-button"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="app-header__title">
+                <small>AFIT StudyPal</small>
+                <h1 id="current-view-title">Dashboard</h1>
+            </div>
+
+            <div class="app-header__actions">
+                <button
+                    id="theme-toggle"
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Switch to light mode"
+                    aria-pressed="true"
+                >
+                    <span
+                        class="theme-toggle__icon"
+                        aria-hidden="true"
+                    >
+                        ☀
+                    </span>
+
+                    <span class="theme-toggle__text">
+                        Light mode
+                    </span>
+                </button>
+
+                <button
+                    id="header-profile-button"
+                    class="header-profile"
+                    type="button"
+                    aria-label="Open profile"
+                >
+                    <span
+                        id="header-profile-letter"
+                        class="header-profile__avatar"
+                    >
+                        S
+                    </span>
+
+                    <span class="header-profile__text">
+                        <strong id="header-profile-name">
+                            Student
+                        </strong>
+
+                        <small id="header-profile-matric">
+                            Matric number
+                        </small>
+                    </span>
+                </button>
             </div>
         </header>
 
-        <div class="sidebar_search_wrapper">
-            <button type="button" id="sidebar_searchButton" class="sidebar_search_item"><svg viewBox='0 0 24 24' width='2rem' height='2rem'><path d='M15.5 14h-.791-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.55l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' fill='#f5f8fa'></path></svg></button>
-            <input type="search" id="sidebar_searchBar" placeholder="Search by course or keyword" class="sidebar_search_item" >
-        </div>
+        <main class="app-main">
+            <section
+                id="home-view"
+                class="app-view is-active"
+                data-app-view="home"
+                aria-labelledby="home-view-heading"
+            >
+                <div class="welcome-panel">
+                    <div>
+                        <p class="eyebrow">
+                            Student dashboard
+                        </p>
 
-        <div class="hamburger_button">
-            <button type="button" id="hamburger">⇄</button>
-        </div>
+                        <h2 id="home-view-heading">
+                            Welcome,
+                            <span id="welcome-name">Student</span>.
+                        </h2>
 
-        <div class="mobile_hamburger">
-            <button id="mobile_hamburger_item"><svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path fill='#f5f8fa' d='M3 5H21V7H3zM3 11H21V13H3zM3 17H21V19H3z'></path></svg></button>
-        </div>
+                        <p>
+                            Search course resources, explore department
+                            collections, save useful materials, and maintain
+                            your daily study activity.
+                        </p>
 
-        <div class="navigations">
-            <button type="button" class="nav_button" id="home"><svg viewBox = '0 0 24 24' width = '3rem' height='2.5rem'><path fill='#f5f8fa' d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></svg> Home</button>
-            <button type="button" class="nav_button" id="browsePDFs"><svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path fill='#f5f8fa' d='M3 5H21V7H3zM3 11H21V13H3zM3 17H21V19H3z'></path></svg> Browse</button>
-            <button type="button" class="nav_button" id="profile"><svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' fill='#f5f8fa'/></svg> Profile</button>
-        </div>
+                        <button
+                            id="browse-resources-button"
+                            class="button button--primary"
+                            type="button"
+                        >
+                            Browse all resources
+                            <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
 
-        <div class="extra">
-            <button id="logout" class="nav_button"><svg viewBox='0 0 24 24' width='3rem' height='2.5rem'><path d='M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z' fill='#f5f8fa'></path></svg> Logout</button>
-        </div>
+                    <div class="welcome-panel__badge">
+                        <span
+                            id="welcome-profile-letter"
+                            aria-hidden="true"
+                        >
+                            S
+                        </span>
 
-        <div class="mobile_navigations">
-            <button class="nav_button" id="mobile_home">Home</button>
-            <button class="nav_button" id="mobile_browsePDFs">Browse</button>
-            <button class="nav_button" id="mobile_profile">Profile</button>
-            <button class="nav_button" id="mobile_logout">Logout</button>
-        </div>
+                        <strong id="welcome-department">
+                            General Studies
+                        </strong>
 
-        <div id="backdrop"></div>
-    </div>
-
-    <!-- RIGHT CONTAINER -->
-    <div class="right_container">
-       <div class="sub_right_container">
-            <div id="greetings_div">
-                <div id="greetings">
-                    <!-- Javascript renders greetings - welcome + username -->
+                        <small id="welcome-date">
+                            Today
+                        </small>
+                    </div>
                 </div>
 
-                <div id="profile_letter_div">
-                    <span id="profile_letter"></span>
-                    <!-- Javascript renders only the first letter in an image form -->
+                <div class="dashboard-statistics">
+                    <article>
+                        <span class="dashboard-statistics__icon">⌕</span>
+
+                        <div>
+                            <small>Searches</small>
+                            <strong id="search-count">0</strong>
+                        </div>
+                    </article>
+
+                    <article>
+                        <span class="dashboard-statistics__icon">◉</span>
+
+                        <div>
+                            <small>Viewed</small>
+                            <strong id="view-count">0</strong>
+                        </div>
+                    </article>
+
+                    <article>
+                        <span class="dashboard-statistics__icon">☆</span>
+
+                        <div>
+                            <small>Saved</small>
+                            <strong id="saved-count">0</strong>
+                        </div>
+                    </article>
+
+                    <article>
+                        <span class="dashboard-statistics__icon">↑</span>
+
+                        <div>
+                            <small>Study streak</small>
+                            <strong id="streak-count">1 day</strong>
+                        </div>
+                    </article>
                 </div>
-            </div>
-            <!-- RANDOMLY SHOWN PDFS -->
-            <p id="line"></p>
-            <label for="randomly_shown">Showcase</label>
-            <section id="randomly_shown" class="randomly_shown">
-                <!-- Javascript renders random pdfs -->
-                <div id="carousel"></div>
-                <div class="carouselNav">
-                    <button id="left">&lt;</button>
-                    <button id="right">&gt;</button>
-                </div>
+
+                <section class="resource-section">
+                    <div class="resource-section__heading">
+                        <div>
+                            <p class="eyebrow">Recommended</p>
+                            <h2>Showcase resources</h2>
+                        </div>
+
+                        <div class="carousel-controls">
+                            <button
+                                type="button"
+                                data-scroll-target="showcase-resource-track"
+                                data-scroll-direction="-1"
+                                aria-label="Scroll showcase resources left"
+                            >
+                                ←
+                            </button>
+
+                            <button
+                                type="button"
+                                data-scroll-target="showcase-resource-track"
+                                data-scroll-direction="1"
+                                aria-label="Scroll showcase resources right"
+                            >
+                                →
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        id="showcase-resource-track"
+                        class="resource-track"
+                    ></div>
+                </section>
+
+                <section class="resource-section">
+                    <div class="resource-section__heading">
+                        <div>
+                            <p class="eyebrow">Department collections</p>
+                            <h2>Browse by academic programme</h2>
+                        </div>
+                    </div>
+
+                    <div
+                        id="department-resource-sections"
+                        class="department-resource-sections"
+                    ></div>
+                </section>
             </section>
 
-            <!-- OVERALL SITE PDFS IN CATEGORIES -->
-            <label for="categories">Categorized</label>
-            <section id="categories" class="categories">
-                <!-- Javascript renders aetd downloaded pdfs -->
-                <label for="aetd" class="categorized_shown">Aircraft Engineering (AETD)</label>
-                <div id="aetd"></div>
-                <div class="carouselNav">
-                    <button id="aetdleft">&lt;</button>
-                    <button id="aetdright">&gt;</button>
+            <section
+                id="browse-view"
+                class="app-view"
+                data-app-view="browse"
+                aria-labelledby="browse-view-heading"
+                hidden
+            >
+                <div class="view-heading">
+                    <div>
+                        <p class="eyebrow">Resource library</p>
+                        <h2 id="browse-view-heading">
+                            Browse academic resources
+                        </h2>
+
+                        <p>
+                            Search by course code, course title, keyword, or
+                            department.
+                        </p>
+                    </div>
+
+                    <div class="browse-results-summary">
+                        <span id="browse-result-count">0</span>
+                        resources found
+                    </div>
                 </div>
 
-                <label for="bam" class="categorized_shown">Business Administration (BAM)</label>
-                <div id="bam"></div>
-                <div class="carouselNav">
-                    <button id="bamleft">&lt;</button>
-                    <button id="bamright">&gt;</button>
+                <form
+                    id="browse-search-form"
+                    class="browse-toolbar"
+                    role="search"
+                >
+                    <div class="browse-search-field">
+                        <label
+                            for="browse-search-input"
+                            class="visually-hidden"
+                        >
+                            Search resource library
+                        </label>
+
+                        <span aria-hidden="true">⌕</span>
+
+                        <input
+                            type="search"
+                            id="browse-search-input"
+                            placeholder="Search course code, title, or keyword"
+                            maxlength="80"
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <label
+                        for="department-filter"
+                        class="visually-hidden"
+                    >
+                        Filter by department
+                    </label>
+
+                    <select id="department-filter">
+                        <option value="all">
+                            All departments
+                        </option>
+
+                        <option value="AETD">
+                            Aircraft Engineering
+                        </option>
+
+                        <option value="BAM">
+                            Business Administration
+                        </option>
+
+                        <option value="CEED">
+                            Civil Engineering
+                        </option>
+
+                        <option value="EED">
+                            Electrical Engineering
+                        </option>
+
+                        <option value="MAGED">
+                            Mechanical Engineering
+                        </option>
+
+                        <option value="GENERAL">
+                            General Studies
+                        </option>
+
+                        <option value="saved">
+                            Saved resources
+                        </option>
+                    </select>
+
+                    <button
+                        class="button button--primary"
+                        type="submit"
+                    >
+                        Search
+                    </button>
+                </form>
+
+                <div
+                    id="browse-resource-list"
+                    class="browse-resource-list"
+                ></div>
+            </section>
+
+            <section
+                id="profile-view"
+                class="app-view"
+                data-app-view="profile"
+                aria-labelledby="profile-view-heading"
+                hidden
+            >
+                <div class="profile-heading">
+                    <div
+                        id="profile-large-letter"
+                        class="profile-heading__avatar"
+                    >
+                        S
+                    </div>
+
+                    <div>
+                        <p class="eyebrow">Student profile</p>
+
+                        <h2 id="profile-view-heading">
+                            Student Name
+                        </h2>
+
+                        <p id="profile-department">
+                            Department
+                        </p>
+                    </div>
                 </div>
 
-                <label for="civil" class="categorized_shown">Civil Engineering (CEED)</label>
-                <div id="civil"></div>
-                <div class="carouselNav">
-                    <button id="civilleft">&lt;</button>
-                    <button id="civilright">&gt;</button>
-                </div>
+                <div class="profile-grid">
+                    <article class="profile-information-card">
+                        <h3>Account information</h3>
 
-                <label for="eed" class="categorized_shown">Electrical Engineering (EED)</label>
-                <div id="eed"></div>
-                <div class="carouselNav">
-                    <button id="eedleft">&lt;</button>
-                    <button id="eedright">&gt;</button>
-                </div>
+                        <dl>
+                            <div>
+                                <dt>Full name</dt>
+                                <dd id="profile-full-name">Student</dd>
+                            </div>
 
-                <label for="maged" class="categorized_shown">Mechanical Engineering (MAGED)</label>
-                <div id="maged"></div>
-                <div class="carouselNav">
-                    <button id="magedleft">&lt;</button>
-                    <button id="magedright">&gt;</button>
+                            <div>
+                                <dt>Matric number</dt>
+                                <dd id="profile-matric-number">Unavailable</dd>
+                            </div>
+
+                            <div>
+                                <dt>Email</dt>
+                                <dd id="profile-email">Unavailable</dd>
+                            </div>
+
+                            <div>
+                                <dt>Department</dt>
+                                <dd id="profile-department-value">General</dd>
+                            </div>
+
+                            <div>
+                                <dt>Account created</dt>
+                                <dd id="profile-created-date">Unavailable</dd>
+                            </div>
+
+                            <div>
+                                <dt>Online status</dt>
+                                <dd class="online-status">
+                                    <span aria-hidden="true"></span>
+                                    Online
+                                </dd>
+                            </div>
+                        </dl>
+                    </article>
+
+                    <article class="profile-activity-card">
+                        <h3>Study activity</h3>
+
+                        <div class="profile-activity-grid">
+                            <div>
+                                <span>Searches</span>
+                                <strong id="profile-search-count">0</strong>
+                            </div>
+
+                            <div>
+                                <span>Viewed</span>
+                                <strong id="profile-view-count">0</strong>
+                            </div>
+
+                            <div>
+                                <span>Saved</span>
+                                <strong id="profile-saved-count">0</strong>
+                            </div>
+
+                            <div>
+                                <span>Streak</span>
+                                <strong id="profile-streak-count">1 day</strong>
+                            </div>
+
+                            <div>
+                                <span>Study points</span>
+                                <strong id="profile-points-count">0</strong>
+                            </div>
+
+                            <div>
+                                <span>Reward level</span>
+                                <strong id="profile-reward-level">Starter</strong>
+                            </div>
+                        </div>
+
+                        <button
+                            id="reset-activity-button"
+                            class="button button--danger"
+                            type="button"
+                        >
+                            Reset activity
+                        </button>
+                    </article>
                 </div>
             </section>
-        </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>
+                &copy;
+                <span id="current-year">2026</span>
+                AFIT StudyPal. Built by Victor Chinenye Alaezi.
+            </p>
+
+            <p>
+                Demonstration resources only.
+            </p>
+        </footer>
     </div>
 
-    <!-- PROFILE CONTAINER -->
-    <div class="profile_container">
+    <dialog
+        id="resource-dialog"
+        class="resource-dialog"
+        aria-labelledby="resource-dialog-title"
+    >
+        <div class="resource-dialog__panel">
+            <div class="resource-dialog__header">
+                <div>
+                    <p
+                        id="resource-dialog-code"
+                        class="eyebrow"
+                    >
+                        Course code
+                    </p>
 
-        <div class="dashboard">
-            <div id="message">
-                <!-- Javascript renders greetings - random greetings + username -->
+                    <h2 id="resource-dialog-title">
+                        Resource title
+                    </h2>
+
+                    <p id="resource-dialog-department">
+                        Department
+                    </p>
+                </div>
+
+                <button
+                    id="close-resource-dialog"
+                    class="dialog-close-button"
+                    type="button"
+                    aria-label="Close resource preview"
+                >
+                    ×
+                </button>
             </div>
 
-            <div id="profile_letter_div">
-                <span id="profile_letter2"></span>
-                <!-- Javascript renders only the first letter in an image form -->
+            <div class="resource-dialog__preview">
+                <img
+                    id="resource-preview-image"
+                    src="/images/dashboard1.jpeg"
+                    alt=""
+                >
+            </div>
+
+            <div class="resource-dialog__footer">
+                <p>
+                    This demonstration displays a sample image in place of an
+                    actual PDF document.
+                </p>
+
+                <button
+                    id="dialog-save-button"
+                    class="button button--primary"
+                    type="button"
+                >
+                    Save resource
+                </button>
             </div>
         </div>
-
-        <p id="line"></p>
-
-        <div class="notices">
-            <!-- TOP DASHBOARD -->
-            <div class="notice_card">
-                <label for="onlineStatus">Online Status</label>
-                <div id="onlineStatus" class="notice">
-                    <!-- Javascript renders online status -->
-                </div>
-            </div>
-
-            <div class="notice_card">
-                <label for="searched">Searched</label>
-                <div id="searched" class="notice">
-                    0 resources
-                    <!-- Javascript renders in counts how many PDFs a user has searched -->
-                </div>
-            </div>
-
-            <div class="notice_card">
-                <label for="viewed">Viewed</label>
-                <div id="viewed" class="notice">
-                    0 resources
-                    <!-- Javascript renders in count how many PDFs a user has downloaded -->
-                </div>
-            </div>
-
-            <!-- BOTTOM DASHBOARD -->
-            <div class="notice_card">
-                <label for="streak">Matric Number</label>
-                <div id="streak" class="notice">
-                    <!-- Javascript renders in counts per 24hours. Starts when a user views a PDF and pauses when unviewed, resets after 24hours -->
-                </div>
-            </div>
-
-            <div class="notice_card">
-                <label for="rewards">Streak</label>
-                <div id="rewards" class="notice">
-                    <!-- Javascript renders rewards in counts per 2hours of streak -->
-                </div>
-            </div>
-
-            <div class="notice_card">
-                <label for="goPro">Rewards</label>
-                <div id="goPro" class="notice">
-                    <!-- Javascript renders emoji (good or bad), indicating if user has gone pro or not -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- BROWSE CONTAINER -->
-    <div class="browse_container">
-        <div id="modal"><img id="viewer"></img>
-        <button id="goBack">Back</button></div>
-        <div class="course_container">
-            <div id="courses">COURSES</div>
-            <div class="mobile_search_wrapper">
-                <button type="button" id="mobileSearchButton" class="mobile_search_item"><svg viewBox='0 0 24 24' width='2rem' height='2rem'><path d='M15.5 14h-.791-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.55l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' fill='#f5f8fa'></path></svg></button>
-                <input type="search" id="mobileSearchBar" placeholder="Search by course or keyword" class="mobile_search_item" >
-            </div>
-            <div id="list"></div>
-            
-        </div>
-    </div>
-
-    <div id="logout_animation">
-        <div id="animation_coat">
-            <div id="dotted_line"></div>
-            <div id="dotted_line"></div>
-            <div id="dotted_line"></div>
-        </div>
-    </div>
-
-    <script src="afit studypal-home.js"></script>
+    </dialog>
 </body>
 </html>

@@ -3039,7 +3039,7 @@ html[data-theme="light"] .app-header {
         align-items: flex-start;
         flex-direction: column;
         font-size: 1.8rem;
-        text-align: center;
+        align-items: center;
     }
 
     .auth-information {

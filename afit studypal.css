@@ -3276,7 +3276,7 @@ html[data-theme="light"] .app-header {
     }
 
     .app-footer {
-        align-items: flex-start;
+        align-items: center;
         flex-direction: column;
         font-size: 1.8rem;
     }

@@ -2780,12 +2780,13 @@ html[data-theme="light"] .app-header {
     .landing-navigation__actions {
         align-items: stretch;
         flex-direction: column;
-        font-size: 2rem;
+        
     }
 
     .landing-navigation__links a {
         padding: 1.2rem;
         text-align: center;
+        font-size: 2rem;
     }
 
     .landing-navigation__actions .button,
